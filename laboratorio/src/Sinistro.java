@@ -6,11 +6,11 @@ public class Sinistro {
     private String endereco;
     
     //Construtor
-	public Sinistro(String data, String endereco) {
-		this.data = data;
+    public Sinistro(String data, String endereco) {
+        this.data = data;
         this.endereco = endereco;
         this.id = criarId();
-	}
+    }
 
     //Getters
     public int getId() {

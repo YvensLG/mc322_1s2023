@@ -6,13 +6,13 @@ public class Cliente {
     private String endereco;
 
     //Construtor
-	public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
-		this.idade = idade;
+    public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.idade = idade;
         this.endereco = endereco;
-	}
+    }
 
     //Getters
     public String getNome() {
@@ -60,7 +60,14 @@ public class Cliente {
     public String toString(){
         String out = "";
 
-        out += "Cliente " + getNome() + ", de CPF " + getCpf()
+        String valido;
+        if(validarCPF()){
+            valido = "Válido";
+        }else{
+            valido = "Inválido";
+        }
+
+        out += "Cliente " + getNome() + ", de CPF " + getCpf() + " (" + valido + ")"
             + "\nNascido em " + getDataNascimento() + " (" + getIdade() + " anos)"
             + "\nEndereço: " + getEndereco();
 
