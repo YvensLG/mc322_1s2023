@@ -41,7 +41,8 @@ public class Cliente {
 
     //Retorna as informações do Cliente
     public String toString(){
-        return "Nome: " + getNome() + "\nEndereço: " + getEndereco() +
+        return "Nome: " + getNome() +
+               "\nEndereço: " + getEndereco() +
                "\nVeiculos: " + getListaVeiculos();
     }
 }

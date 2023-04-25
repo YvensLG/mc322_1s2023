@@ -7,11 +7,11 @@ public class Main {
         "naoresponda@sesegura.com", "Fortaleza");
 
     ArrayList<Veiculo> veiculos_cliente = new ArrayList<Veiculo>();
-    veiculos_cliente.add(new Veiculo("OSL4P15", "Honda", "Civic"));
-    veiculos_cliente.add(new Veiculo("ABC1D23", "Ferrari", "Roma"));
+    veiculos_cliente.add(new Veiculo("OSL4P15", "Honda", "Civic", 1999));
+    veiculos_cliente.add(new Veiculo("ABC1D23", "Ferrari", "Roma", 1500));
 
     ArrayList<Veiculo> veiculos_empresa = new ArrayList<Veiculo>();
-    veiculos_empresa.add(new Veiculo("PL4C4", "Qualquer", "Carro"));
+    veiculos_empresa.add(new Veiculo("PL4C4", "Qualquer", "Carro", 2017));
 
     ClientePF cliente = new ClientePF(
         "Yvens",
