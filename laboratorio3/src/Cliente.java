@@ -14,7 +14,6 @@ public class Cliente {
     }
     
     //Getters e Setters
-
     public String getNome() {
         return this.nome;
     }

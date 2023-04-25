@@ -70,70 +70,71 @@ public class Seguradora {
 	//se foi possível cadastrar retorna verdadeiro
 	//se não, o cliente já está cadastrado e retorna falso
 	public boolean cadastrarCliente(Cliente cliente){
+		//checa se cliente está na lista
 		for(int i=0; i<listaClientes.size(); i++){
-			if(cliente == listaClientes.get(i)){
-				return false;
+			Cliente c = listaClientes.get(i);
+
+			//checa se cpf/cnpj de c é igual ao de cliente
+			if(cliente instanceof ClientePF && c instanceof ClientePF){
+				if( ( (ClientePF) cliente).getCpf().equals( ( (ClientePF) c).getCpf() ) ){
+					return false;
+				}
+			}else if(cliente instanceof ClientePJ && c instanceof ClientePJ){
+				if( ( (ClientePJ) cliente).getCnpj().equals( ( (ClientePJ) c).getCnpj() ) ){
+					return false;
+				}
 			}
 		}
+
+		//adiciona cliente na lista
 		listaClientes.add(cliente);
 		return true;
 	}
 
-	// public boolean cadastrarCliente(Cliente cliente){
-	// 	for(int i=0; i<listaClientes.size(); i++){
-	// 		Cliente c = listaClientes.get(i);
-	// 		if(cliente instanceof ClientePF && c instanceof ClientePF){
-	// 			if(cliente.getCpf().equals(c.getCpf())){
-	// 				return false;
-	// 			}
-	// 		}else if(cliente instanceof ClientePJ && c instanceof ClientePJ){
-	// 			if(cliente.getCnpj().equals(c.getCnpj())){
-	// 				return false;
-	// 			}
-	// 		}
-	// 	}
-	// 	listaClientes.add(cliente);
-	// 	return true;
-	// }
-
 	//se foi possível remover retorna verdadeiro
 	//se não, o cliente não está cadastrado e retorna falso
 	public boolean removerCliente(String cliente){
+		//checa se o cliente está na lista
 		for(int i=0; i<listaClientes.size(); i++){
-			if(cliente.equals(listaClientes.get(i).getNome())){
+			Cliente c = listaClientes.get(i);
+			if(cliente.equals(c.getNome())){
 				listaClientes.remove(i);
 				return true;
 			}
 		}
+		//se não está
 		return false;
 	}
 	
-	//lista todos os Clientes do tipoCliente (ClientePF ou ClientePJ)
+	//lista todos os Clientes do tipoCliente (ClientePF ou ClientePJ) da lista
 	public void listarClientes(String tipoCliente){
 		for(int i=0; i<listaClientes.size(); i++){
 			String qual = "Cliente";
-			Cliente cliente = listaClientes.get(i);
+			Cliente c = listaClientes.get(i);
 
-			if(cliente instanceof ClientePF){
+			if(c instanceof ClientePF){
 				qual += "PF";
 			}else{
 				qual += "PJ";
 			}
 
 			if(qual.equals(tipoCliente)){
-				System.out.println(cliente);
+				System.out.println(c);
 			}
 		}
 	}
 
 	//se foi possível gerar sinistro retorna verdadeiro
-	//se não, retorna falso
+	//se não foi, retorna falso
 	boolean gerarSinistro(Sinistro sinistro){
+		//checa se o sinistro já está na lista
 		for(int i=0; i<listaSinistros.size(); i++){
-			if(sinistro.getId() == listaSinistros.get(i).getId()){
+			sinistro s = listaSinistros.get(i);
+			if(sinistro.getId() == s.getId()){
 				return false;
 			}
 		}
+		//se não, adiciona
 		listaSinistros.add(sinistro);
 		return true;
 	}
@@ -143,7 +144,7 @@ public class Seguradora {
 	boolean visualizarSinistro(String cliente){
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
-			if(cliente.equals(sinistro.getCliente().getNome())){
+			if(cliente.equals( sinistro.getCliente().getNome() )){
 				System.out.println(sinistro);
 				return true;
 			}

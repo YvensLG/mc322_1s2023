@@ -45,6 +45,7 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 
+	//Retorna as informações do Veículo
 	public String toString() {
         return "Placa: " + getPlaca() +
                 ", Marca: " + getMarca() +

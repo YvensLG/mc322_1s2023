@@ -11,8 +11,9 @@ public class ClientePF extends Cliente {
 
   // Construtor
   public ClientePF(String nome, String endereco, ArrayList<Veiculo> listaVeiculos,
-      String cpf, String genero, LocalDate dataLicenca, String educacao,
-      LocalDate dataNascimento, String classeEconomica) {
+                   String cpf, String genero, LocalDate dataLicenca, String educacao,
+                   LocalDate dataNascimento, String classeEconomica)
+  {
     super(nome, endereco, listaVeiculos);
     this.cpf = cpf;
     this.genero = genero;

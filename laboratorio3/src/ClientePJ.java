@@ -7,7 +7,8 @@ public class ClientePJ extends Cliente {
 
   // Construtor
   public ClientePJ(String nome, String endereco, ArrayList<Veiculo> listaVeiculos,
-      String cnpj, LocalDate dataFundacao) {
+                   String cnpj, LocalDate dataFundacao)
+  {
     super(nome, endereco, listaVeiculos);
     this.cnpj = cnpj;
     this.dataFundacao = dataFundacao;
@@ -30,6 +31,7 @@ public class ClientePJ extends Cliente {
   public boolean validarCNPJ(String cnpj) {
     cnpj = cnpj.replaceAll("[^0-9]", ""); // remove não números
 
+    //deve ter 14 números
     if (cnpj.length() != 14) {
       return false;
     }
@@ -38,7 +40,7 @@ public class ClientePJ extends Cliente {
     char a = cnpj.charAt(0);
     boolean k = true;
 
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 14; i++) {
       if (cnpj.charAt(i) != a) {
         k = false;
       }
@@ -48,7 +50,7 @@ public class ClientePJ extends Cliente {
       return false;
     }
 
-    // algoritmo para encontrar o penúltimo algarismo do CPF
+    // algoritmo para encontrar o penúltimo algarismo do CNPJ
     int[] mult1 = new int[] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
     int ver1 = 0;
 
@@ -63,7 +65,7 @@ public class ClientePJ extends Cliente {
       ver1 = 11 - ver1;
     }
 
-    // algoritmo para encontrar o último algarismo do CPF
+    // algoritmo para encontrar o último algarismo do CNPJ
     int[] mult2 = new int[] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
     int ver2 = 0;
 
