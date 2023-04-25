@@ -129,7 +129,7 @@ public class Seguradora {
 	boolean gerarSinistro(Sinistro sinistro){
 		//checa se o sinistro já está na lista
 		for(int i=0; i<listaSinistros.size(); i++){
-			sinistro s = listaSinistros.get(i);
+			Sinistro s = listaSinistros.get(i);
 			if(sinistro.getId() == s.getId()){
 				return false;
 			}
