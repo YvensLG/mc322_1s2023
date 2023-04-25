@@ -111,10 +111,15 @@ public class Seguradora {
 
 	//se foi possível gerar sinistro retorna verdadeiro
 	//se não, retorna falso
-	//nao entendi esse pra falar a verdade
-	// boolean gerarSinistro(){
-		
-	// }
+	boolean gerarSinistro(Sinistro sinistro){
+		for(int i=0; i<listaSinistros.size(); i++){
+			if(listaSinistros.get(i) == sinistro){
+				return false;
+			}
+		}
+		listaSinistro.add(sinistro);
+		return true;
+	}
 
 	//se foi possível encontrar o sinistro, retorna true e o imprime
 	//se não, retorna false
