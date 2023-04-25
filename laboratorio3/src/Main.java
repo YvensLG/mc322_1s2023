@@ -31,8 +31,23 @@ public class Main {
         "56.505.098/0001-93",
         LocalDate.of(1900, 1, 1));
 
-    testaClientePF(cliente);
-    testaClientePJ(empresa);
+    seguradora.cadastrarCliente(cliente);
+    seguradora.cadastrarCliente(empresa);
+
+    Sinistro sinistro = new Sinistro(
+        LocalDate.now(),
+        "Manaus",
+        seguradora,
+        veiculos_cliente.get(0),
+        cliente);
+
+    seguradora.gerarSinistro(sinistro);
+    seguradora.gerarSinistro(sinistro);
+
+    seguradora.visualizarSinistro(cliente.getNome());
+    seguradora.visualizarSinistro(empresa.getNome());
+
+    seguradora.listarSinistros();
   }
 
   public static void testaClientePF(ClientePF cliente) {

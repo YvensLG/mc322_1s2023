@@ -10,7 +10,7 @@ public class Sinistro {
     private Cliente cliente;
     
     //Construtor
-    public Sinistro(String data, String endereco, Seguradora seguradora
+    public Sinistro(LocalDate data, String endereco, Seguradora seguradora,
                     Veiculo veiculo, Cliente cliente) {
         this.id = criarId();
         this.data = data;
@@ -76,7 +76,7 @@ public class Sinistro {
     public String toString(){
         return "Data: " + getData() +
                "\nEndereço: " + getEndereco() +
-               "\nSeguradora: " + getSeguradora() +
+               "\nSeguradora: " + getSeguradora().getNome() +
                "\nVeiculo: " + getVeiculo() +
                "\nCliente: " + getCliente();
     }

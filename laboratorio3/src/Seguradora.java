@@ -71,7 +71,7 @@ public class Seguradora {
 	//se não, o cliente já está cadastrado e retorna falso
 	public boolean cadastrarCliente(Cliente cliente){
 		for(int i=0; i<listaClientes.size(); i++){
-			if(listaClientes.get(i) == cliente){
+			if(cliente == listaClientes.get(i)){
 				return false;
 			}
 		}
@@ -79,12 +79,29 @@ public class Seguradora {
 		return true;
 	}
 
+	// public boolean cadastrarCliente(Cliente cliente){
+	// 	for(int i=0; i<listaClientes.size(); i++){
+	// 		Cliente c = listaClientes.get(i);
+	// 		if(cliente instanceof ClientePF && c instanceof ClientePF){
+	// 			if(cliente.getCpf().equals(c.getCpf())){
+	// 				return false;
+	// 			}
+	// 		}else if(cliente instanceof ClientePJ && c instanceof ClientePJ){
+	// 			if(cliente.getCnpj().equals(c.getCnpj())){
+	// 				return false;
+	// 			}
+	// 		}
+	// 	}
+	// 	listaClientes.add(cliente);
+	// 	return true;
+	// }
+
 	//se foi possível remover retorna verdadeiro
 	//se não, o cliente não está cadastrado e retorna falso
 	public boolean removerCliente(String cliente){
 		for(int i=0; i<listaClientes.size(); i++){
-			if(listaClientes.get(i).getNome() == cliente){
-				remove(i);
+			if(cliente.equals(listaClientes.get(i).getNome())){
+				listaClientes.remove(i);
 				return true;
 			}
 		}
@@ -103,7 +120,7 @@ public class Seguradora {
 				qual += "PJ";
 			}
 
-			if(qual == tipoCliente){
+			if(qual.equals(tipoCliente)){
 				System.out.println(cliente);
 			}
 		}
@@ -113,20 +130,20 @@ public class Seguradora {
 	//se não, retorna falso
 	boolean gerarSinistro(Sinistro sinistro){
 		for(int i=0; i<listaSinistros.size(); i++){
-			if(listaSinistros.get(i) == sinistro){
+			if(sinistro.getId() == listaSinistros.get(i).getId()){
 				return false;
 			}
 		}
-		listaSinistro.add(sinistro);
+		listaSinistros.add(sinistro);
 		return true;
 	}
 
 	//se foi possível encontrar o sinistro, retorna true e o imprime
 	//se não, retorna false
 	boolean visualizarSinistro(String cliente){
-		for(int i=0; i<listarSinistros.size(); i++){
+		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
-			if(sinistro.getCliente().getNome() == cliente){
+			if(cliente.equals(sinistro.getCliente().getNome())){
 				System.out.println(sinistro);
 				return true;
 			}
@@ -136,7 +153,7 @@ public class Seguradora {
 
 	//imprime os sinistros da lista
 	void listarSinistros(){
-		for(int i=0; i<listarSinistros.size(); i++){
+		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
 			System.out.println(sinistro);
 		}
