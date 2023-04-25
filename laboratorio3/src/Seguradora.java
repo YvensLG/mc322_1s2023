@@ -114,7 +114,7 @@ public class Seguradora {
 
 			if(c instanceof ClientePF){
 				qual += "PF";
-			}else{
+			}else if(c instanceof ClientePJ){
 				qual += "PJ";
 			}
 
@@ -142,14 +142,15 @@ public class Seguradora {
 	//se foi possível encontrar o sinistro, retorna true e o imprime
 	//se não, retorna false
 	boolean visualizarSinistro(String cliente){
+		boolean b = false;
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
 			if(cliente.equals( sinistro.getCliente().getNome() )){
 				System.out.println(sinistro);
-				return true;
+				b = true;
 			}
 		}
-		return false;
+		return b;
 	}
 
 	//imprime os sinistros da lista
