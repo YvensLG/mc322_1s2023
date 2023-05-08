@@ -22,7 +22,7 @@ public class Main {
         "Masculino",
         LocalDate.of(2020, 1, 8),
         "Ensino Médio Completo",
-        LocalDate.of(2004, 2, 2),
+        LocalDate.of(1963, 2, 2),
         "Muito Rico"
     );
 
@@ -31,14 +31,18 @@ public class Main {
         "Campinas",
         veiculos_empresa,
         "56.505.098/0001-93",
-        LocalDate.of(1900, 1, 1)
+        LocalDate.of(1900, 1, 1),
+        59
     );
 
-    while(true){
-      if(menu(cliente, empresa, seguradora) == false){
-        break;
-      }
-    }
+    System.out.println(cliente.getValorSeguro());
+    System.out.println(empresa.getValorSeguro());
+
+    // while(true){
+    //   if(menu(cliente, empresa, seguradora) == false){
+    //     break;
+    //   }
+    // }
   }
 
   private static boolean menu(ClientePF cliente, ClientePJ empresa, Seguradora seguradora){

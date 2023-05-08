@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
@@ -21,6 +22,7 @@ public class ClientePF extends Cliente {
     this.educacao = educacao;
     this.dataNascimento = dataNascimento;
     this.classeEconomica = classeEconomica;
+    setValorSeguro();
   }
 
   // Getters e Setters
@@ -68,80 +70,35 @@ public class ClientePF extends Cliente {
     this.classeEconomica = classeEconomica;
   }
 
-  // Valida o CPF do ClientePF
-  public boolean validarCPF(String cpf) {
-    cpf = cpf.replaceAll("[^0-9]", ""); // remove não números
-
-    if (cpf.length() != 11) {
-      return false;
-    }
-
-    // não pode ter todos os algarismos iguais
-    char a = cpf.charAt(0);
-    boolean k = true;
-
-    for (int i = 0; i < 11; i++) {
-      if (cpf.charAt(i) != a) {
-        k = false;
-      }
-    }
-
-    if (k) {
-      return false;
-    }
-
-    // algoritmo para encontrar o penúltimo algarismo do CPF
-    int ver1 = 0;
-
-    for (int i = 0; i < 9; i++) {
-      ver1 += (10 - i) * (cpf.charAt(i) - '0');
-    }
-
-    ver1 = ver1 % 11;
-    if (ver1 == 0 || ver1 == 1) {
-      ver1 = 0;
-    } else {
-      ver1 = 11 - ver1;
-    }
-
-    // algoritmo para encontrar o último algarismo do CPF
-    int ver2 = 0;
-
-    for (int i = 1; i < 10; i++) {
-      ver2 += (11 - i) * (cpf.charAt(i) - '0');
-    }
-
-    ver2 = ver2 % 11;
-    if (ver2 == 0 || ver2 == 1) {
-      ver2 = 0;
-    } else {
-      ver2 = 11 - ver2;
-    }
-
-    // checa se os algarismos estão corretos
-    if (cpf.charAt(9) - '0' != ver1 || cpf.charAt(10) - '0' != ver2) {
-      return false;
-    } else {
-      return true;
-    }
+  public int getIdade() {
+    int idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+    return idade;
   }
 
   // Retorna as informações do ClientePF
   public String toString() {
-    String valido;
+    // String valido;
 
-    if (validarCPF(getCpf())) {
-      valido = "Válido";
-    } else {
-      valido = "Inválido";
-    }
+    // if (validarCPF(getCpf())) {
+    //   valido = "Válido";
+    // } else {
+    //   valido = "Inválido";
+    // }
 
     return super.toString() +
-        "\nCPF: " + getCpf() + " (" + valido + ")" +
+        "\nCPF: " + getCpf() + " (" + "valido?" + ")" +
         "\nGênero: " + getGenero() +
         "\nData de Licença: " + getDataLicenca() +
         "\nEducação: " + getEducacao() +
         "\nData de Nascimento: " + getDataNascimento() +
         "\nClasse Econômica: " + getClasseEconomica();
   }
+
+  // Calcula o Score do ClientePF
+  public double calculaScore(){
+    int quantidadeCarros = this.getListaVeiculos().size();
+    int idade = getIdade();
+    return CalcSeguro.VALOR_BASE.getCalculo() * CalcSeguro.FATOR_IDADE(idade) * quantidadeCarros;
+  }
+
 }

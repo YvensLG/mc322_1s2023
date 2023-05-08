@@ -126,7 +126,7 @@ public class Seguradora {
 
 	//se foi possível gerar sinistro retorna verdadeiro
 	//se não foi, retorna falso
-	boolean gerarSinistro(Sinistro sinistro){
+	public boolean gerarSinistro(Sinistro sinistro){
 		//checa se o sinistro já está na lista
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro s = listaSinistros.get(i);
@@ -141,7 +141,7 @@ public class Seguradora {
 
 	//se foi possível encontrar o sinistro, retorna true e o imprime
 	//se não, retorna false
-	boolean visualizarSinistro(String cliente){
+	public boolean visualizarSinistro(String cliente){
 		boolean b = false;
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
@@ -154,10 +154,15 @@ public class Seguradora {
 	}
 
 	//imprime os sinistros da lista
-	void listarSinistros(){
+	public void listarSinistros(){
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
 			System.out.println(sinistro);
 		}
 	}
+
+	//calcula o Preço do Seguro para cada Cliente
+	// public int calcularPrecoSeguroCliente(){
+	// 	calculaScore () * (1 + quantidade_de_sinistros )
+	// }
 }

@@ -4,14 +4,17 @@ import java.util.ArrayList;
 public class ClientePJ extends Cliente {
   private final String cnpj;
   private LocalDate dataFundacao;
+  private int qtdeFuncionarios;
 
   // Construtor
   public ClientePJ(String nome, String endereco, ArrayList<Veiculo> listaVeiculos,
-                   String cnpj, LocalDate dataFundacao)
+                   String cnpj, LocalDate dataFundacao, int qtdeFuncionarios)
   {
     super(nome, endereco, listaVeiculos);
     this.cnpj = cnpj;
     this.dataFundacao = dataFundacao;
+    this.qtdeFuncionarios = qtdeFuncionarios;
+    setValorSeguro();
   }
 
   // Getters e Setters
@@ -27,79 +30,34 @@ public class ClientePJ extends Cliente {
     this.dataFundacao = dataFundacao;
   }
 
-  // Valida o CNPJ do ClientePJ
-  public boolean validarCNPJ(String cnpj) {
-    cnpj = cnpj.replaceAll("[^0-9]", ""); // remove não números
+  public int getQtdeFuncionarios() {
+    return this.qtdeFuncionarios;
+  }
 
-    //deve ter 14 números
-    if (cnpj.length() != 14) {
-      return false;
-    }
-
-    // não pode ter todos os algarismos iguais
-    char a = cnpj.charAt(0);
-    boolean k = true;
-
-    for (int i = 0; i < 14; i++) {
-      if (cnpj.charAt(i) != a) {
-        k = false;
-      }
-    }
-
-    if (k) {
-      return false;
-    }
-
-    // algoritmo para encontrar o penúltimo algarismo do CNPJ
-    int[] mult1 = new int[] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-    int ver1 = 0;
-
-    for (int i = 0; i < 12; i++) {
-      ver1 += mult1[i] * (cnpj.charAt(i) - '0');
-    }
-
-    ver1 = ver1 % 11;
-    if (ver1 == 0 || ver1 == 1) {
-      ver1 = 0;
-    } else {
-      ver1 = 11 - ver1;
-    }
-
-    // algoritmo para encontrar o último algarismo do CNPJ
-    int[] mult2 = new int[] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-    int ver2 = 0;
-
-    for (int i = 0; i < 13; i++) {
-      ver2 += mult2[i] * (cnpj.charAt(i) - '0');
-    }
-
-    ver2 = ver2 % 11;
-    if (ver2 == 0 || ver2 == 1) {
-      ver2 = 0;
-    } else {
-      ver2 = 11 - ver2;
-    }
-
-    // checa se os algarismos estão corretos
-    if (cnpj.charAt(12) - '0' != ver1 || cnpj.charAt(13) - '0' != ver2) {
-      return false;
-    } else {
-      return true;
-    }
+  public void setQtdeFuncionarios(int qtdeFuncionarios) {
+    this.qtdeFuncionarios = qtdeFuncionarios;
   }
 
   // Retorna as informações do ClientePJ
   public String toString() {
-    String valido;
+    // String valido;
 
-    if (validarCNPJ(getCnpj())) {
-      valido = "Válido";
-    } else {
-      valido = "Inválido";
-    }
+    // if (validarCNPJ(getCnpj())) {
+    //   valido = "Válido";
+    // } else {
+    //   valido = "Inválido";
+    // }
 
     return super.toString() +
-        "\nCNPJ: " + getCnpj() + " (" + valido + ")" +
+        "\nCNPJ: " + getCnpj() + " (" + "valido??" + ")" +
         "\nData de Fundação: " + getDataFundacao();
+  }
+
+  // Calcula o Score do ClientePJ
+  public double calculaScore(){
+    
+    int quantidadeCarros = this.getListaVeiculos().size();
+    double MULT = (1 + ( (double) this.qtdeFuncionarios ) /100);
+    return CalcSeguro.VALOR_BASE.getCalculo() * MULT * quantidadeCarros;
   }
 }
