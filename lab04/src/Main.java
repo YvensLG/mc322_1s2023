@@ -27,16 +27,13 @@ public class Main {
     );
 
     ClientePJ empresa = new ClientePJ(
-        "Empresa Genérica",
+        "Empresa Generica",
         "Campinas",
         veiculos_empresa,
         "56.505.098/0001-93",
         LocalDate.of(1900, 1, 1),
         59
     );
-
-    System.out.println(cliente.getValorSeguro());
-    System.out.println(empresa.getValorSeguro());
 
     // while(true){
     //   if(menu(cliente, empresa, seguradora) == false){

@@ -145,7 +145,7 @@ public class Seguradora {
 		boolean b = false;
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
-			if(cliente.equals( sinistro.getCliente().getNome() )){
+			if(cliente.equals(sinistro.getCliente().getNome())){
 				System.out.println(sinistro);
 				b = true;
 			}
@@ -161,8 +161,38 @@ public class Seguradora {
 		}
 	}
 
+	//conta quantos sinistros um Cliente possui
+	public int contarSinistro(String cliente){
+		int total = 0;
+		for(int i=0; i<listaSinistros.size(); i++){
+			Sinistro sinistro = listaSinistros.get(i);
+			if(cliente.equals(sinistro.getCliente().getNome())){
+				System.out.println(sinistro);
+				total ++;
+			}
+		}
+		return total;
+	}
+
+
 	//calcula o Preço do Seguro para cada Cliente
-	// public int calcularPrecoSeguroCliente(){
-	// 	calculaScore () * (1 + quantidade_de_sinistros )
-	// }
+	public void calcularPrecoSeguroCliente(){
+		for(int i=0; i<listaClientes.size(); i++){
+			Cliente c = listaClientes.get(i);
+			nome = c.getNome();
+			int sinistros = contarSinistro(nome);
+			c.setValorSeguro(c.calculaScore() * (1 + sinistros));
+		}
+	}
+
+	//calcula a Receita
+	public int calcularReceita(){
+		calcularPrecoSeguroCliente();
+		int total = 0;
+		for(int i=0; i<listaClientes.size(); i++){
+			Cliente c = listaClientes.get(i);
+			total += c.getValorSeguro();
+		}
+		return total;
+	}
 }

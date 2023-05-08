@@ -43,8 +43,8 @@ public class Cliente {
         return this.valorSeguro;
     }
 
-    public void setValorSeguro() {
-        this.valorSeguro = calculaScore();
+    public void setValorSeguro(double valorSeguro) {
+        this.valorSeguro = valorSeguro;
     }
 
     //Retorna as informações do Cliente

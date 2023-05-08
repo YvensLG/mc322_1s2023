@@ -14,7 +14,7 @@ public class ClientePJ extends Cliente {
     this.cnpj = cnpj;
     this.dataFundacao = dataFundacao;
     this.qtdeFuncionarios = qtdeFuncionarios;
-    setValorSeguro();
+    setValorSeguro(calculaScore());
   }
 
   // Getters e Setters

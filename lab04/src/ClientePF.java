@@ -22,7 +22,7 @@ public class ClientePF extends Cliente {
     this.educacao = educacao;
     this.dataNascimento = dataNascimento;
     this.classeEconomica = classeEconomica;
-    setValorSeguro();
+    setValorSeguro(calculaScore());
   }
 
   // Getters e Setters
