@@ -47,14 +47,17 @@ public class Cliente {
         this.valorSeguro = valorSeguro;
     }
     
+    //adiciona um veículo ao cliente
     public void addVeiculo(Veiculo v) {
         listaVeiculos.add(v);
     }
     
+    //remove um veículo do cliente
     public void remVeiculo(Veiculo v) {
         listaVeiculos.remove(v);
     }
     
+    //calcula o Score do cliente (polimorfismo)
     public double calculaScore(){
         return 0.0;
     }

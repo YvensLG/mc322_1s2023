@@ -224,6 +224,7 @@ public class Seguradora {
 		}
 	}
 
+	//toString retorna o nome da seguradora
 	public String toString(){
         return getNome();
     }

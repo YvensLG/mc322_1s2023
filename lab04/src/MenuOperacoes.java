@@ -1,4 +1,5 @@
 public enum MenuOperacoes {
+    //lista de operações
     CADASTRAR (1),
     LISTAR (2),
     EXCLUIR (3),
@@ -28,14 +29,17 @@ public enum MenuOperacoes {
 
     public final double operacao;
 
+    //construtor
     MenuOperacoes(double operacao) {
         this.operacao = operacao;
     }
 
+    //get
     public double getOperacao(){
         return operacao;
     }
 
+    //dado o valor, retorna a enumeração respectiva
     public static MenuOperacoes valor(double operacao) {
         for (MenuOperacoes enumeracao : values()) {
             if (enumeracao.getOperacao() == operacao) {

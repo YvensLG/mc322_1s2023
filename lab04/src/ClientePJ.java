@@ -39,16 +39,8 @@ public class ClientePJ extends Cliente {
 
   // Retorna as informações do ClientePJ
   public String toString() {
-    // String valido;
-
-    // if (validarCNPJ(getCnpj())) {
-    //   valido = "Válido";
-    // } else {
-    //   valido = "Inválido";
-    // }
-
     return super.toString() +
-        "\nCNPJ: " + getCnpj() + " (" + "valido??" + ")" +
+        "\nCNPJ: " + getCnpj() +
         "\nData de Fundação: " + getDataFundacao();
   }
 

@@ -76,16 +76,8 @@ public class ClientePF extends Cliente {
 
   // Retorna as informações do ClientePF
   public String toString() {
-    // String valido;
-
-    // if (validarCPF(getCpf())) {
-    //   valido = "Válido";
-    // } else {
-    //   valido = "Inválido";
-    // }
-
     return super.toString() +
-        "\nCPF: " + getCpf() + " (" + "valido?" + ")" +
+        "\nCPF: " + getCpf() +
         "\nGênero: " + getGenero() +
         "\nData de Licença: " + getDataLicenca() +
         "\nEducação: " + getEducacao() +

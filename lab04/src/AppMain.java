@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 
 public class AppMain {
+    //scanner que será utilizado
     private static Scanner scan = new Scanner(System.in);
+
     //lista de seguradoras
     private static ArrayList<Seguradora> seguradoras = new ArrayList<Seguradora>();
+
     public static void main(String[] args) {
         Seguradora seguradora;
         Veiculo veiculo;
@@ -74,6 +77,7 @@ public class AppMain {
         menu();
     }
 
+    //Escolher a Seguradora desejada dentre todas disponíveis
     private static Seguradora qualSeguradora(){
         System.out.println("\nDigite a posição da Seguradora que deseja:\n");
         for(int i = 0; i < seguradoras.size(); i++){
@@ -87,6 +91,7 @@ public class AppMain {
         return seg;
     }
 
+    //Escolher o Cliente desejado dentre todos disponíveis
     private static Cliente qualCliente(Seguradora seg){
         System.out.println("\nDigite a posição do Cliente que deseja:\n");
         for(int i = 0; i < seg.getListaClientes().size(); i++){
@@ -100,6 +105,7 @@ public class AppMain {
         return c;
     }
 
+    //Escolher o Veículo desejado dentre todos disponíveis
     private static Veiculo qualVeiculo(Cliente c){
         System.out.println("\nDigite a posição do Veículo que deseja:\n");
         for(int i = 0; i < c.getListaVeiculos().size(); i++){
@@ -113,6 +119,7 @@ public class AppMain {
         return v;
     }
 
+    //Escolher o Sinistro desejado dentre todos disponíveis
     private static Sinistro qualSinistro(Seguradora seg){
         System.out.println("\nDigite a posição do Sinistro que deseja:\n");
         for(int i = 0; i < seg.getListaSinistros().size(); i++){
@@ -126,8 +133,10 @@ public class AppMain {
         return s;
     }
 
+    //Menu de Operações
     public static void menu(){
 
+        //while so acaba quando o operador apertar 0-Sair
         loop: while(true){
             System.out.println("\n Digite um número correspondente a uma opção:\n" +
                                "1- Cadastrar\n" +
@@ -146,7 +155,9 @@ public class AppMain {
             Sinistro sin;
             Cliente c;
 
+            //separação de casos para cada uma das opções de operação
             switch (operacao) {
+                //cadastros
                 case CADASTRAR:
                     System.out.println("\n Digite um número correspondente a uma opção:\n" +
                                             "1- Cadastrar Cliente\n" +
@@ -159,6 +170,8 @@ public class AppMain {
                     numC = num + numC/10;
                     MenuOperacoes opC = MenuOperacoes.valor(numC);
                     switch (opC) {
+
+                        //cadastrar cliente em uma seguradora
                         case CAD_CLIENTE:
                             seg = qualSeguradora();
                             System.out.println(seg);
@@ -168,11 +181,21 @@ public class AppMain {
                                 System.out.println("Nome:");
                                 String nome = scan.nextLine();
 
+                                if(!Validacao.validarNome(nome)){
+                                    System.out.println("Nome Inválido.");
+                                    break;
+                                }
+
                                 System.out.println("Endereco:");
                                 String endereco = scan.nextLine();
 
                                 System.out.println("CPF:");
                                 String cpf = scan.nextLine();
+
+                                if(!Validacao.validarCPF(cpf)){
+                                    System.out.println("CPF Inválido.");
+                                    break;
+                                }
 
                                 System.out.println("Masculino, Feminino, Outro:");
                                 String genero = scan.nextLine();
@@ -193,16 +216,30 @@ public class AppMain {
                                                   educacao, LocalDate.parse(dataNascimento), classeEconomica);
 
                                 seg.cadastrarCliente(c);
+
+                                System.out.println("Cliente Cadastrado!");
+                                seg.calcularPrecoSeguroCliente();
+                                System.out.println("Seguro:" + c.getValorSeguro());
                             }
                             else if(tipo.equals("ClientePJ")) {
                                 System.out.println("Nome:");
                                 String nome = scan.nextLine();
+
+                                if(!Validacao.validarNome(nome)){
+                                    System.out.println("Nome Inválido.");
+                                    break;
+                                }
 
                                 System.out.println("Endereco:");
                                 String endereco = scan.nextLine();
 
                                 System.out.println("CNPJ:");
                                 String cnpj = scan.nextLine();
+
+                                if(!Validacao.validarCNPJ(cnpj)){
+                                    System.out.println("CNPJ Inválido.");
+                                    break;
+                                }
 
                                 System.out.println("Data de Fundacao (AAAA-MM-DD):");
                                 String dataFundacao = scan.nextLine();
@@ -214,13 +251,18 @@ public class AppMain {
                                 c = new ClientePJ(nome, endereco, cnpj, LocalDate.parse(dataFundacao), qtdeFuncionarios);
 
                                 seg.cadastrarCliente(c);
+
+                                System.out.println("Cliente Cadastrado!");
+                                seg.calcularPrecoSeguroCliente();
+                                System.out.println("Seguro:" + c.getValorSeguro());
                             }
                             else {
                                 System.out.println("Comando Inválido.");
                             }
                             break;
 
-                        case CAD_SEGURADORA:
+                        //cadastrar seguradora na lista de seguradoras
+                            case CAD_SEGURADORA:
                             System.out.println("Nome da nova seguradora:");
                             String nome = scan.nextLine();
 
@@ -238,6 +280,7 @@ public class AppMain {
                             System.out.println("Seguradora cadastrada.");
                             break;
 
+                        //cadastrar veiculo a um cliente
                         case CAD_VEICULO:
                             seg = qualSeguradora();
 
@@ -261,15 +304,18 @@ public class AppMain {
                             System.out.println("Vaículo cadastrado.");
                             break;
                         
+                        //voltar ao menu principal
                         case CAD_VOLTAR:
                             break;
                         
+                        //caso algo dê errado
                         default: 
                             System.out.println("Operação Inválida");
                             break;
                     }
                 break;
-                    
+                
+                //listas
                 case LISTAR:
                     System.out.println("\n Digite um número correspondente a uma opção:\n" +
                                             "1- Listar Clientes por Seguradora\n" +
@@ -284,6 +330,7 @@ public class AppMain {
                     numL = num + numL/10;
                     MenuOperacoes opL = MenuOperacoes.valor(numL);
                     switch (opL) {
+                        //listar clientes de uma seguradora (dividido entre PF e PJ)
                         case LIST_CLIENTE:
                             seg = qualSeguradora();
 
@@ -293,18 +340,21 @@ public class AppMain {
                             seg.listarClientes(P);
                             break;
                         
+                        //listar sinistros de um Cliente
                         case LIST_SINISTRO_CLI:
                             seg = qualSeguradora();
                             c = qualCliente(seg);
 
                             seg.visualizarSinistro(c.getNome());
                             break;
-
+                        
+                        //listar sinistros de uma seguradora
                         case LIST_SINISTRO_SEG:
                             seg = qualSeguradora();
                             seg.listarSinistros();
                             break;
 
+                        //listar veículos de um cliente
                         case LIST_VEICULO_CLI:
                             seg = qualSeguradora();
                             c = qualCliente(seg);
@@ -312,20 +362,23 @@ public class AppMain {
                             System.out.println(c.getListaVeiculos());
                             break;
                         
+                        //listar veículos de uma seguradora
                         case LIST_VEICULO_SEG:
                             seg = qualSeguradora();
                             seg.listarVeiculos();
                             break;
-
+                        //voltar ao menu principal
                         case LIST_VOLTAR:
                             break;
                         
+                        //caso algo dê errado
                         default: 
                             System.out.println("Operação Inválida");
                             break;
                     }
                     break;    
-
+                
+                //excluir algo
                 case EXCLUIR:
                     System.out.println("\n Digite um número correspondente a uma opção:\n" +
                                         "1- Excluir Cliente\n" +
@@ -339,6 +392,7 @@ public class AppMain {
                     MenuOperacoes opE = MenuOperacoes.valor(numE);
 
                     switch (opE) {
+                        //excluir um cliente de uma seguradora
                         case EXC_CLIENTE:
                             seg = qualSeguradora();
 
@@ -349,6 +403,7 @@ public class AppMain {
                             System.out.println("Cliente Removido.\n");
                             break;
 
+                        //excluir um veículo de um cliente
                         case EXC_VEICULO:
                             seg = qualSeguradora();
 
@@ -361,7 +416,8 @@ public class AppMain {
                             c.remVeiculo(v);
                             System.out.println("Veículo Removido.\n");
                             break;
-                            
+                        
+                        //excluir sinistro de uma seguradora
                         case EXC_SINISTRO:
                             seg = qualSeguradora();
 
@@ -372,15 +428,18 @@ public class AppMain {
                             System.out.println("Sinistro Removido.\n");
                             break;
 
+                        //voltar ao menu principal
                         case EXC_VOLTAR:
                             break;
 
+                        //caso algo dê errado
                         default:
                             System.out.println("Operação Inválida");
                             break;
                     }
                     break;
-
+                
+                //gera um sinistro
                 case GERAR_SINISTRO:
                     seg = qualSeguradora();
 
@@ -400,7 +459,8 @@ public class AppMain {
                     System.out.println("Sinistro gerado.");
 
                     break;    
-
+                
+                //transfere o seguro de um cliente ao outro
                 case TRANSFERIR_SEGURO:
                     seg = qualSeguradora();
 
@@ -414,17 +474,20 @@ public class AppMain {
                     System.out.println("Transferência Realizada\n");
 
                     break;    
-
+                
+                //calcula a receita de uma seguradora
                 case CALCULAR_RECEITA:
                     seg = qualSeguradora();
                     seg.calcularPrecoSeguroCliente();
                     System.out.println("A receita total é " + seg.calcularReceita());
                     break;
-
+                
+                //fecha o menu
                 case SAIR:
                     System.out.println("Fechando Menu");
                     break loop;
-
+                
+                //caso algo dê errado
                 default:
                     System.out.println("Operação Inválida");
                     break;
