@@ -78,6 +78,6 @@ public class Sinistro {
                "\nEndereço: " + getEndereco() +
                "\nSeguradora: " + getSeguradora().getNome() +
                "\nVeiculo: " + getVeiculo() +
-               "\nCliente: " + getCliente();
+               "\nCliente: " + getCliente().getNome();
     }
 }

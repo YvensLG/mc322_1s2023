@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class ClientePJ extends Cliente {
   private final String cnpj;
@@ -7,10 +6,10 @@ public class ClientePJ extends Cliente {
   private int qtdeFuncionarios;
 
   // Construtor
-  public ClientePJ(String nome, String endereco, ArrayList<Veiculo> listaVeiculos,
+  public ClientePJ(String nome, String endereco,
                    String cnpj, LocalDate dataFundacao, int qtdeFuncionarios)
   {
-    super(nome, endereco, listaVeiculos);
+    super(nome, endereco);
     this.cnpj = cnpj;
     this.dataFundacao = dataFundacao;
     this.qtdeFuncionarios = qtdeFuncionarios;

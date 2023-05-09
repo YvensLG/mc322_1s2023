@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
   private final String cpf;
@@ -11,11 +10,11 @@ public class ClientePF extends Cliente {
   private String classeEconomica;
 
   // Construtor
-  public ClientePF(String nome, String endereco, ArrayList<Veiculo> listaVeiculos,
+  public ClientePF(String nome, String endereco,
                    String cpf, String genero, LocalDate dataLicenca, String educacao,
                    LocalDate dataNascimento, String classeEconomica)
   {
-    super(nome, endereco, listaVeiculos);
+    super(nome, endereco);
     this.cpf = cpf;
     this.genero = genero;
     this.dataLicenca = dataLicenca;

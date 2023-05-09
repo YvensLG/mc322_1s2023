@@ -167,16 +167,15 @@ public class Seguradora {
 		for(int i=0; i<listaSinistros.size(); i++){
 			Sinistro sinistro = listaSinistros.get(i);
 			if(cliente.equals(sinistro.getCliente().getNome())){
-				System.out.println(sinistro);
 				total ++;
 			}
 		}
 		return total;
 	}
 
-
 	//calcula o Preço do Seguro para cada Cliente
 	public void calcularPrecoSeguroCliente(){
+		
 		for(int i=0; i<listaClientes.size(); i++){
 			Cliente c = listaClientes.get(i);
 			nome = c.getNome();
@@ -195,4 +194,37 @@ public class Seguradora {
 		}
 		return total;
 	}
+
+	//transfere o Seguro de um cliente ao outro
+	//c1 faz a transferência e c2 recebe
+	public void transferirSeguro(Cliente c1, Cliente c2){
+		for(int i = 0; i < c1.getListaVeiculos().size(); i++){
+			c2.addVeiculo(c1.getListaVeiculos().get(i));
+		}
+
+        c1.setListaVeiculos(new ArrayList<Veiculo>());
+
+        calcularPrecoSeguroCliente();
+    }
+
+	//exclui um sinistro da lista
+	public void excluirSinistro(Sinistro s){
+        listaSinistros.remove(s);
+    }
+
+	//lista os Veículos de Clientes da Seguradora
+	public void listarVeiculos(){
+		for(int i=0; i<listaClientes.size(); i++){
+			Cliente c = listaClientes.get(i);
+
+			for(int j=0; j<c.getListaVeiculos().size(); j++){
+				Veiculo v = c.getListaVeiculos().get(j);
+				System.out.println(v);
+			}
+		}
+	}
+
+	public String toString(){
+        return getNome();
+    }
 }
