@@ -3,21 +3,19 @@ import java.time.LocalDate;
 
 public class Sinistro {
     private final int id;
-    private LocalDate data;
-    private String endereco;
-    private Seguradora seguradora;
-    private Veiculo veiculo;
-    private Cliente cliente;
-    
+	private LocalDate data;
+	private String endereco;
+	private Condutor condutor;
+	private Seguro seguro;
+
     //Construtor
-    public Sinistro(LocalDate data, String endereco, Seguradora seguradora,
-                    Veiculo veiculo, Cliente cliente) {
+    public Sinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro)
+	{
         this.id = criarId();
         this.data = data;
         this.endereco = endereco;
-        this.seguradora = seguradora;
-        this.veiculo = veiculo;
-        this.cliente = cliente;
+        this.condutor = condutor;
+        this.seguro = seguro;
     }
 
     //Cria um ID para o Sinistro
@@ -27,7 +25,25 @@ public class Sinistro {
         return id;
     }
 
-    //Getters e Setters
+	//Retorna as informações do Sinistro
+    public String toString(){
+        String info = "";
+
+        info = 
+        "Sinistro " + this.id + ":" +
+        "\nData: " + this.data +
+        "\nEndereco: " + this.endereco +
+        "\nCondutor: " + this.condutor.getNome() +
+		"\nSeguro: " + this.seguro.getId();
+        
+        return info;
+    }
+    
+
+
+
+
+    //----------------------- Getters e Setters -----------------------
 	public int getId() {
 		return this.id;
 	}
@@ -48,36 +64,20 @@ public class Sinistro {
 		this.endereco = endereco;
 	}
 
-	public Seguradora getSeguradora() {
-		return this.seguradora;
+	public Condutor getCondutor() {
+		return this.condutor;
 	}
 
-	public void setSeguradora(Seguradora seguradora) {
-		this.seguradora = seguradora;
+	public void setCondutor(Condutor condutor) {
+		this.condutor = condutor;
 	}
 
-	public Veiculo getVeiculo() {
-		return this.veiculo;
+	public Seguro getSeguro() {
+		return this.seguro;
 	}
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
 	}
-
-	public Cliente getCliente() {
-		return this.cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-    //Retorna as informações do Sinistro
-    public String toString(){
-        return "Data: " + getData() +
-               "\nEndereço: " + getEndereco() +
-               "\nSeguradora: " + getSeguradora().getNome() +
-               "\nVeiculo: " + getVeiculo() +
-               "\nCliente: " + getCliente().getNome();
-    }
+    
 }

@@ -1,9 +1,10 @@
 import java.time.LocalDate;
 //import java.time.Period;
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Seguro {
-    private final int id = 0;
+    private final int id;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private Seguradora seguradora;
@@ -14,13 +15,20 @@ public abstract class Seguro {
     //Construtor
     public Seguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora)
     {
-        //id?
+        this.id = criarId();
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.seguradora = seguradora;
         listaSinistros = new ArrayList<Sinistro>();
         listaCondutores = new ArrayList<Condutor>();
         //valorMensal?
+    }
+
+    //Cria um ID para o Seguro
+    public int criarId(){
+        Random gerador = new Random();
+        int id = gerador.nextInt(1000000000);
+        return id;
     }
 
     //Desautoriza um Condutor (remove da lista)

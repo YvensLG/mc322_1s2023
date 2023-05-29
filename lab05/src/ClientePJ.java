@@ -1,21 +1,23 @@
 import java.time.LocalDate;
-//import java.time.Period;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class ClientePJ extends Cliente {
   private final String cnpj;
   private LocalDate dataFundacao;
   private ArrayList<Frota> listaFrota;
+  private int quantidadeFunc;
 
   // Construtor
   public ClientePJ(String nome, String telefone, String endereco, String email,
-                   String cnpj, LocalDate dataFundacao
+                   String cnpj, LocalDate dataFundacao, int quantidadeFunc
                   )
   {
     super(nome, telefone, endereco, email);
     this.cnpj = cnpj;
     this.dataFundacao = dataFundacao;
     listaFrota = new ArrayList<Frota>();
+    this.quantidadeFunc = quantidadeFunc;
   }
 
   // Se foi possível adicionar a Frota, retorna true, caso contrário, false
@@ -75,6 +77,11 @@ public class ClientePJ extends Cliente {
 
 
   //----------------------- Getters e Setters -----------------------
+
+  public int getIdade() {
+    int idade = Period.between(dataFundacao, LocalDate.now()).getYears();
+    return idade;
+  }
  
   public String getCnpj() {
 		return this.cnpj;
@@ -94,5 +101,13 @@ public class ClientePJ extends Cliente {
 
   public void setListaFrota(ArrayList<Frota> listaFrota) {
     this.listaFrota = listaFrota;
+  }
+
+  public int getQuantidadeFunc() {
+    return this.quantidadeFunc;
+  }
+
+  public void setQuantidadeFunc(int quantidadeFunc) {
+    this.quantidadeFunc = quantidadeFunc;
   }
 }
