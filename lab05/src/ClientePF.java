@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-//import java.time.Period;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
@@ -59,6 +59,11 @@ public class ClientePF extends Cliente {
 
 
   //----------------------- Getters e Setters -----------------------
+
+  public int getIdade() {
+    int idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+    return idade;
+  }
   
   public String getCpf() {
 		return this.cpf;

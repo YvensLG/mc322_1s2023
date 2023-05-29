@@ -1,3 +1,3 @@
-public class SeguroPJ {
+public class SeguroPJ extends Seguro {
     
 }

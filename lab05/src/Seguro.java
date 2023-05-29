@@ -41,9 +41,20 @@ public abstract class Seguro {
         return false;
     }
 
-    public abstract int calcularValor();
+    public abstract double calcularValor();
 
-    public abstract boolean gerarSinistro();
+    //public abstract boolean gerarSinistro();
+
+    //Quantidade de Sinistros que os Condutores possuem
+    public int quantidadeSinistrosCondutor(){
+        int qtd = 0;
+
+        for(Condutor cond : listaCondutores){
+            qtd += cond.getListaSinistros().size();
+        }
+
+        return qtd;
+    }
     
     //Retorna as informações do Seguro
     public String toString(){
@@ -118,5 +129,8 @@ public abstract class Seguro {
     public void setValorMensal(int valorMensal) {
         this.valorMensal = valorMensal;
     }
+
+    //retorna o Cliente do SeguroPF e PJ
+    public abstract Cliente getCliente();
 
 }
