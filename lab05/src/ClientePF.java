@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.time.Period;
+//import java.time.Period;
 import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
@@ -30,7 +30,7 @@ public class ClientePF extends Cliente {
            "\nCPF: " + this.cpf +
            "\nGênero: " + this.genero +
            "\nEducação: " + this.educacao +
-           "\nData de Licença: " + this.dataNascimento +
+           "\nData de Nascimento: " + this.dataNascimento +
            "\nLista de Veículos: " + this.listaVeiculos;
 
     return info;
@@ -59,7 +59,8 @@ public class ClientePF extends Cliente {
 
 
   //----------------------- Getters e Setters -----------------------
-  public String getCpf(String cpf) {
+  
+  public String getCpf() {
 		return this.cpf;
 	}
 
