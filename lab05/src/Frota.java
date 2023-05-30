@@ -18,7 +18,7 @@ public class Frota {
         return String.format("%d", c);
     }
 
-    // Se foi possível adicionar o Veículo, retorna true, caso contrário, false
+    //Adiciona Veículo à Lista
     public boolean addVeiculo(Veiculo veiculo){
         if(!listaVeiculos.contains(veiculo)){
             listaVeiculos.add(veiculo);
@@ -27,7 +27,7 @@ public class Frota {
         return false;
     }
 
-    // Se foi possível remover o Veículo, retorna true, caso contrário, false
+    //Remove Veículo da Lista
     public boolean removeVeiculo(Veiculo veiculo){
         if(listaVeiculos.contains(veiculo)){
             listaVeiculos.remove(veiculo);

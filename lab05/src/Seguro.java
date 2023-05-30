@@ -52,7 +52,14 @@ public abstract class Seguro {
     //calcula o valor do Seguro (depende se PF ou PJ)
     public abstract double calcularValor();
 
-    //public abstract boolean gerarSinistro();
+    //coloca um Sinistro na Lista
+    public boolean gerarSinistro(Sinistro sinistro){
+        if(!listaSinistros.contains(sinistro)){
+            listaSinistros.add(sinistro);
+            return true;
+        }
+        return false;
+    }
 
     //Quantidade de Sinistros que os Condutores possuem
     public int quantidadeSinistrosCondutor(){
@@ -92,6 +99,9 @@ public abstract class Seguro {
         this.valorMensal = calcularValor();
         return this.valorMensal;
     }
+    
+    //retorna o Cliente do SeguroPF e PJ
+    public abstract Cliente getCliente();
 
     public int getId() {
         return this.id;
@@ -136,9 +146,5 @@ public abstract class Seguro {
     public void setListaCondutores(ArrayList<Condutor> listaCondutores) {
         this.listaCondutores = listaCondutores;
     }
-
-
-    //retorna o Cliente do SeguroPF e PJ
-    public abstract Cliente getCliente();
 
 }

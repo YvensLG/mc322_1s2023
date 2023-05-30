@@ -46,7 +46,7 @@ public class ClientePJ extends Cliente {
     return false;
   }
 
-  // Remove uma frota
+  // Remove uma frota inteira
   public boolean atualizarFrota(Frota frota){
     if(listaFrota.contains(frota)){
       listaFrota.remove(frota);
@@ -55,9 +55,14 @@ public class ClientePJ extends Cliente {
     return false;
   }
 
-  // ???
-  //public boolean getVeiculosPorFrota();
-
+  // Retorna os Veiculos de uma Frota de ClientePJ
+  public ArrayList<Veiculo> getVeiculosPorFrota(Frota frota){
+    if(!listaFrota.contains(frota)){
+      return null;
+    }
+  
+		return frota.getListaVeiculos();
+	}
 
   // Retorna as informações do ClientePJ
   public String toString(){

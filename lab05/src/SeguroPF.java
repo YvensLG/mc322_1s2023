@@ -21,9 +21,9 @@ public class SeguroPF extends Seguro {
 
         valor *= CalcSeguro.VALOR_BASE.getCalculo();
         valor *= CalcSeguro.FATOR_IDADE(cliente.getIdade());
-        valor *= 1 + 1 / (cliente.getListaVeiculos().size() + 2);
-        valor *= 2 + getSeguradora().getSegurosPorCliente(cliente).size() / 10;
-        valor *= 5 + quantidadeSinistrosCondutor() / 10;
+        valor *= 1.0 + 1.0 / (cliente.getListaVeiculos().size() + 2.0);
+        valor *= 2.0 + getSeguradora().getSinistrosPorCliente(cliente).size() / 10.0;
+        valor *= 5.0 + quantidadeSinistrosCondutor() / 10.0;
 
         return valor;
     }
@@ -60,6 +60,5 @@ public class SeguroPF extends Seguro {
     public void setCliente(ClientePF cliente) {
         this.cliente = cliente;
     }
-
 
 }

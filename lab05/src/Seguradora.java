@@ -10,7 +10,8 @@ public class Seguradora {
 	private ArrayList<Seguro> listaSeguros;
 
 	//Construtor
-	public Seguradora(String cnpj, String nome, String telefone, String endereco, String email) {
+	public Seguradora(String cnpj, String nome, String telefone, String endereco, String email)
+	{
 		this.cnpj = cnpj;
 		this.nome = nome;
 		this.telefone = telefone;
@@ -102,7 +103,7 @@ public class Seguradora {
             ArrayList<Seguro> segs = getSegurosPorCliente(cliente);
 
 			for(Seguro s : segs){
-				receita += s.calcularValor();
+				receita += s.getValorMensal();
 			}
 
 			String texto = "Cliente " + cliente.getNome() +

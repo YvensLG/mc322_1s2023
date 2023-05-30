@@ -20,11 +20,11 @@ public class SeguroPJ extends Seguro {
         double valor = 1.0;
 
         valor *= CalcSeguro.VALOR_BASE.getCalculo();
-        valor *= 10 + ( cliente.getQuantidadeFunc() ) /10;
-        valor *= 1 + 1 / ( frota.getListaVeiculos().size() + 2);
-        valor *= 1 + 1 / ( cliente.getIdade() +2);
-        valor *= 2 + getSeguradora().getSinistrosPorCliente(cliente).size() / 10;
-        valor *= 5 + quantidadeSinistrosCondutor() / 10;
+        valor *= 10.0 + ( cliente.getQuantidadeFunc() ) / 10.0;
+        valor *= 1.0 + 1.0 / ( frota.getListaVeiculos().size() + 2.0);
+        valor *= 1.0 + 1.0 / ( cliente.getIdade() + 2.0);
+        valor *= 2.0 + getSeguradora().getSinistrosPorCliente(cliente).size() / 10.0;
+        valor *= 5.0 + quantidadeSinistrosCondutor() / 10.0;
 
         return valor;
     }
