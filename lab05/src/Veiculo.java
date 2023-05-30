@@ -11,8 +11,21 @@ public class Veiculo {
 		this.modelo = modelo;
 		this.anoFabricacao = anoFabricacao;
 	}
+
+	//Retorna as informações do Veículo
+	public String toString() {
+        return "Placa: " + this.placa +
+                ", Marca: " + this.marca +
+                ", Modelo: " + this.modelo +
+                ", Ano de Fabricação: " + this.anoFabricacao + "\n";
+    }
 	
-	//Getters e Setters
+
+
+
+
+ 	//----------------------- Getters e Setters -----------------------
+
 	public String getPlaca() {
 		return this.placa;
 	}
@@ -45,11 +58,4 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 
-	//Retorna as informações do Veículo
-	public String toString() {
-        return "Placa: " + this.placa +
-                ", Marca: " + this.marca +
-                ", Modelo: " + this.modelo +
-                ", Ano de Fabricação: " + this.anoFabricacao + "\n";
-    }
 }

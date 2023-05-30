@@ -29,6 +29,17 @@ public class SeguroPJ extends Seguro {
         return valor;
     }
 
+    //Retorna as informações do SeguroPJ
+    public String toString(){
+        String info = "";
+
+        info =  super.toString() + 
+                "\nCliente: " + cliente.getNome() +
+                "\nFrota: " + frota.getClass();
+        
+        return info;
+    }
+
 
 
 

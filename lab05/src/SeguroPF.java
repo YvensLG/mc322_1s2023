@@ -28,6 +28,17 @@ public class SeguroPF extends Seguro {
         return valor;
     }
 
+    //Retorna as informações do SeguroPF
+    public String toString(){
+        String info = "";
+
+        info =  super.toString() + 
+                "\nCliente: " + cliente.getNome() +
+                "\nVeículo: " + veiculo;
+        
+        return info;
+    }
+
 
 
 

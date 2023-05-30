@@ -10,8 +10,7 @@ public class ClientePJ extends Cliente {
 
   // Construtor
   public ClientePJ(String nome, String telefone, String endereco, String email,
-                   String cnpj, LocalDate dataFundacao, int quantidadeFunc
-                  )
+                   String cnpj, LocalDate dataFundacao, int quantidadeFunc)
   {
     super(nome, telefone, endereco, email);
     this.cnpj = cnpj;
@@ -65,9 +64,10 @@ public class ClientePJ extends Cliente {
     String info;
 
     info = super.toString() +
-           "\nCPF: " + this.cnpj +
+           "\nCNPJ: " + this.cnpj +
            "\nData de Fundação: " + this.dataFundacao +
-           "\nLista de Frotas: " + this.listaFrota;
+           "\nQuantidade de Funcionários: " + this.quantidadeFunc +
+           "\nQuantidade de Frotas: " + this.listaFrota.size();
 
     return info;
   }

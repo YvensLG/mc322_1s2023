@@ -11,8 +11,7 @@ public class ClientePF extends Cliente {
 
   // Construtor
   public ClientePF(String nome, String telefone, String endereco, String email,
-                   String cpf, String genero, String educacao, LocalDate dataNascimento
-                  )
+                   String cpf, String genero, String educacao, LocalDate dataNascimento)
   {
     super(nome, telefone, endereco, email);
     this.cpf = cpf;
@@ -20,20 +19,6 @@ public class ClientePF extends Cliente {
     this.educacao = educacao;
     this.dataNascimento = dataNascimento;
     listaVeiculos = new ArrayList<Veiculo>();
-  }
-  
-  // Retorna as informações do ClientePF
-  public String toString(){
-    String info;
-
-    info = super.toString() +
-           "\nCPF: " + this.cpf +
-           "\nGênero: " + this.genero +
-           "\nEducação: " + this.educacao +
-           "\nData de Nascimento: " + this.dataNascimento +
-           "\nLista de Veículos: " + this.listaVeiculos;
-
-    return info;
   }
 
   // Se foi possível adicionar o Veículo, retorna true, caso contrário, false
@@ -52,6 +37,20 @@ public class ClientePF extends Cliente {
         return true;
     }
     return false;
+  }
+
+  // Retorna as informações do ClientePF
+  public String toString(){
+    String info;
+
+    info = super.toString() +
+           "\nCPF: " + this.cpf +
+           "\nGênero: " + this.genero +
+           "\nEducação: " + this.educacao +
+           "\nData de Nascimento: " + this.dataNascimento +
+           "\nLista de Veículos: " + this.listaVeiculos;
+
+    return info;
   }
 
 

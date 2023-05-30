@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Seguradora {
-	private final int cnpj;
+	private final String cnpj;
 	private String nome;
 	private String telefone;
 	private String endereco;
@@ -10,7 +10,7 @@ public class Seguradora {
 	private ArrayList<Seguro> listaSeguros;
 
 	//Construtor
-	public Seguradora(int cnpj, String nome, String telefone, String endereco, String email) {
+	public Seguradora(String cnpj, String nome, String telefone, String endereco, String email) {
 		this.cnpj = cnpj;
 		this.nome = nome;
 		this.telefone = telefone;
@@ -113,6 +113,21 @@ public class Seguradora {
 
 	}
 
+	//Retorna as informações da Seguradora
+    public String toString(){
+        String info = "";
+
+        info = 
+        "Informações da Seguradora " + this.nome + ":" +
+		"\nCNPJ: " + this.cnpj +
+        "\nTelefone: " + this.telefone +
+        "\nEndereco: " + this.endereco +
+        "\nEmail: " + this.email +
+		"\nQuantidade de Clientes: " + this.listaClientes.size() +
+		"\nQuantidade de Seguros: " + this.listaSeguros.size();
+        
+        return info;
+    }
 
 
 
@@ -120,7 +135,7 @@ public class Seguradora {
 
     //----------------------- Getters e Setters -----------------------
 	
-	public int getCnpj() {
+	public String getCnpj() {
 		return this.cnpj;
 	}
 

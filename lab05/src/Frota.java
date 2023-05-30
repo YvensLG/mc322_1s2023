@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Frota {
@@ -5,9 +6,16 @@ public class Frota {
     private ArrayList<Veiculo> listaVeiculos;
     
     // Construtor
-    public Frota(String code){
-        this.code = code;
+    public Frota(){
+        this.code = criarCode();
         listaVeiculos = new ArrayList<Veiculo>();
+    }
+
+    //Cria um Código para a Frota
+    public String criarCode(){
+        Random gerador = new Random();
+        int c = gerador.nextInt(1000000000);
+        return String.format("%d", c);
     }
 
     // Se foi possível adicionar o Veículo, retorna true, caso contrário, false
@@ -33,7 +41,7 @@ public class Frota {
         String info;
 
         info = "Frota de Código " + this.code +
-               "\nVeículos: " + this.listaVeiculos;
+               "\nQuantidade de Veículos: " + this.listaVeiculos.size();
 
         return info;
     }

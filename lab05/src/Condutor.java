@@ -43,13 +43,13 @@ public class Condutor {
                 "\nEndereco: " + this.endereco +
                 "\nEmail: " + this.email +
                 "\nData de Nascimento: " + this.dataNasc +
-                "\nLista de Sinistros: " + this.listaSinistros;
+                "\nQuantidade de Sinistros: " + this.listaSinistros.size();
 
         return info;
     }
 
 
-    
+
 
 
     //----------------------- Getters e Setters -----------------------

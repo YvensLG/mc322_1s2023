@@ -10,7 +10,7 @@ public abstract class Seguro {
     private Seguradora seguradora;
     private ArrayList<Sinistro> listaSinistros;
     private ArrayList<Condutor> listaCondutores;
-    private int valorMensal;
+    protected double valorMensal;
 
     //Construtor
     public Seguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora)
@@ -21,7 +21,7 @@ public abstract class Seguro {
         this.seguradora = seguradora;
         listaSinistros = new ArrayList<Sinistro>();
         listaCondutores = new ArrayList<Condutor>();
-        //valorMensal?
+        valorMensal = 0;
     }
 
     //Cria um ID para o Seguro
@@ -49,6 +49,7 @@ public abstract class Seguro {
         return false;
     }
 
+    //calcula o valor do Seguro (depende se PF ou PJ)
     public abstract double calcularValor();
 
     //public abstract boolean gerarSinistro();
@@ -72,20 +73,26 @@ public abstract class Seguro {
         "Seguro número " + this.id + ":" +
         "\nData de Início: " + this.dataInicio +
         "\nData de Fim: " + this.dataFim +
-        "\nValor Mensal: " + this.valorMensal +
+        "\nValor Mensal: " + getValorMensal() +
         "\nSeguradora: " + this.seguradora.getNome() +
         "\nLista de Sinistros: " + this.listaSinistros +
-        "Lista de Condutores: " + this.listaCondutores;
+        "\nLista de Condutores: " + this.listaCondutores;
         
         return info;
     }
     
-
-
+    
+    
 
 
     //----------------------- Getters e Setters -----------------------
     
+    //atualiza valor antes de retorná-lo (protected para sempre usar essa função antes de chamar)
+    public double getValorMensal() {
+        this.valorMensal = calcularValor();
+        return this.valorMensal;
+    }
+
     public int getId() {
         return this.id;
     }
@@ -130,13 +137,6 @@ public abstract class Seguro {
         this.listaCondutores = listaCondutores;
     }
 
-    public int getValorMensal() {
-        return this.valorMensal;
-    }
-
-    public void setValorMensal(int valorMensal) {
-        this.valorMensal = valorMensal;
-    }
 
     //retorna o Cliente do SeguroPF e PJ
     public abstract Cliente getCliente();
