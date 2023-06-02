@@ -7,7 +7,8 @@ public class Seguradora {
 	private String telefone;
 	private String endereco;
 	private String email;
-	private ArrayList<Cliente> listaClientes;
+	private ArrayList<ClientePJ> listaClientesPJ;
+	private ArrayList<ClientePF> listaClientesPF;
 	private ArrayList<Seguro> listaSeguros;
 
 	//Construtor
@@ -18,20 +19,24 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.email = email;
-		this.listaClientes = new ArrayList<Cliente>();
+		this.listaClientesPJ = new ArrayList<ClientePJ>();
+		this.listaClientesPF = new ArrayList<ClientePF>();
 		this.listaSeguros = new ArrayList<Seguro>();
 	}
 	
 	//lista todos os Clientes cadastrados na lista
 	public void listarClientes(){
-		for(Cliente c : listaClientes){
+		for(Cliente c : listaClientesPF){
+			System.out.println(c.getNome());
+		}
+		for(Cliente c : listaClientesPJ){
 			System.out.println(c.getNome());
 		}
 	}
 
 	//coloca um novo seguro na lista
 	public SeguroPF gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Veiculo veiculo, ClientePF cliente){
-		if(!listaClientes.contains(cliente)){
+		if(!listaClientesPF.contains(cliente)){
 			return null;
 		}
 		
@@ -42,6 +47,10 @@ public class Seguradora {
 	}
 
 	public SeguroPJ gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Frota frota, ClientePJ cliente){
+		if(!listaClientesPJ.contains(cliente)){
+			return null;
+		}
+		
 		SeguroPJ seguro = new SeguroPJ(dataInicio, dataFim, this, frota, cliente);
 		listaSeguros.add(seguro);
 		
@@ -71,9 +80,17 @@ public class Seguradora {
 	}
 
 	//adiciona um cliente na lista
-	public boolean cadastrarCliente(Cliente cliente){
-		if(!listaClientes.contains(cliente)){
-			listaClientes.add(cliente);
+	public boolean cadastrarCliente(ClientePF cliente){
+		if(!listaClientesPF.contains(cliente)){
+			listaClientesPF.add(cliente);
+			return true;
+		}
+		
+		return false;
+	}
+	public boolean cadastrarCliente(ClientePJ cliente){
+		if(!listaClientesPJ.contains(cliente)){
+			listaClientesPJ.add(cliente);
 			return true;
 		}
 		
@@ -81,9 +98,17 @@ public class Seguradora {
 	}
 
 	//remove um cliente da lista
-	public boolean removerCliente(Cliente cliente){
-		if(listaClientes.contains(cliente)){
-			listaClientes.remove(cliente);
+	public boolean removerCliente(ClientePF cliente){
+		if(listaClientesPF.contains(cliente)){
+			listaClientesPF.remove(cliente);
+			return true;
+		}
+		
+		return false;
+	}
+	public boolean removerCliente(ClientePJ cliente){
+		if(listaClientesPJ.contains(cliente)){
+			listaClientesPJ.remove(cliente);
 			return true;
 		}
 		
@@ -118,8 +143,9 @@ public class Seguradora {
 
 	//calcula o valor da receita
 	public void calcularReceita(){
+		double total = 0;
 		
-		for(Cliente cliente : listaClientes){
+		for(Cliente cliente : listaClientesPF){
 			double receita = 0;
 
             ArrayList<Seguro> segs = getSegurosPorCliente(cliente);
@@ -132,8 +158,27 @@ public class Seguradora {
 							" - Seguros: " + "R$" + String.format("%.2f", receita);
 
             System.out.println(texto);
+
+			total += receita;
+        }
+		for(Cliente cliente : listaClientesPJ){
+			double receita = 0;
+
+            ArrayList<Seguro> segs = getSegurosPorCliente(cliente);
+
+			for(Seguro s : segs){
+				receita += s.getValorMensal();
+			}
+
+			String texto = "Cliente " + cliente.getNome() +
+							" - Seguros: " + "R$" + String.format("%.2f", receita);
+
+            System.out.println(texto);
+
+			total += receita;
         }
 
+		System.out.println("Receita Total: R$" + String.format("%.2f", total));
 	}
 
 	//Retorna as informações da Seguradora
@@ -146,7 +191,8 @@ public class Seguradora {
         "\nTelefone: " + this.telefone +
         "\nEndereco: " + this.endereco +
         "\nEmail: " + this.email +
-		"\nQuantidade de Clientes: " + this.listaClientes.size() +
+		"\nQuantidade de ClientesPF: " + this.listaClientesPF.size() +
+		"\nQuantidade de ClientesPJ: " + this.listaClientesPJ.size() +
 		"\nQuantidade de Seguros: " + this.listaSeguros.size();
         
         return info;
@@ -194,12 +240,20 @@ public class Seguradora {
 		this.email = email;
 	}
 
-	public ArrayList<Cliente> getListaClientes() {
-		return this.listaClientes;
+	public ArrayList<ClientePF> getListaClientesPF() {
+		return this.listaClientesPF;
 	}
 
-	public void setListaClientes(ArrayList<Cliente> listaClientes) {
-		this.listaClientes = listaClientes;
+	public void setListaClientesPF(ArrayList<ClientePF> listaClientesPF) {
+		this.listaClientesPF = listaClientesPF;
+	}
+
+	public ArrayList<ClientePJ> getListaClientesPJ() {
+		return this.listaClientesPJ;
+	}
+
+	public void setListaClientes(ArrayList<ClientePJ> listaClientesPJ) {
+		this.listaClientesPJ = listaClientesPJ;
 	}
 
 	public ArrayList<Seguro> getListaSeguros() {

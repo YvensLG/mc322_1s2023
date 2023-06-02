@@ -108,33 +108,83 @@ public class AppMain {
         return seg;
     }
 
-    //Escolher o Cliente desejado dentre todos disponíveis
-    private static Cliente qualCliente(Seguradora seg){
-        System.out.println("\nDigite a posição do Cliente que deseja:\n");
-        for(int i = 0; i < seg.getListaClientes().size(); i++){
-            System.out.println("Cliente número " + i + " :");
-            System.out.println(seg.getListaClientes().get(i) + "\n");
+    //Escolher o ClientePF desejado dentre todos disponíveis
+    private static ClientePF qualClientePF(Seguradora seg){
+        System.out.println("\nDigite a posição do ClientePF que deseja:\n");
+        for(int i = 0; i < seg.getListaClientesPF().size(); i++){
+            System.out.println("Cliente número " + (i+1) + " :");
+            System.out.println(seg.getListaClientesPF().get(i).getNome() + "\n");
         }
 
-        Cliente c = seg.getListaClientes().get(scan.nextInt());
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seg.getListaClientesPF().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        ClientePF c = seg.getListaClientesPF().get(num);
         scan.nextLine();
 
         return c;
     }
 
-    // //Escolher o Veículo desejado dentre todos disponíveis
-    // private static Veiculo qualVeiculo(Cliente c){
-    //     System.out.println("\nDigite a posição do Veículo que deseja:\n");
-    //     for(int i = 0; i < c.getListaVeiculos().size(); i++){
-    //         System.out.println("Veículo número " + i + " :");
-    //         System.out.println(c.getListaVeiculos().get(i) + "\n");
-    //     }
+    //Escolher o ClientePJ desejado dentre todos disponíveis
+    private static ClientePJ qualClientePJ(Seguradora seg){
+        System.out.println("\nDigite a posição do ClientePJ que deseja:\n");
+        for(int i = 0; i < seg.getListaClientesPJ().size(); i++){
+            System.out.println("Cliente número " + (i+1) + " :");
+            System.out.println(seg.getListaClientesPJ().get(i).getNome() + "\n");
+        }
 
-    //     Veiculo v = c.getListaVeiculos().get(scan.nextInt());
-    //     scan.nextLine();
+        int num;
 
-    //     return v;
-    // }
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seg.getListaClientesPJ().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        ClientePJ c = seg.getListaClientesPJ().get(num);
+        scan.nextLine();
+
+        return c;
+    }
+
+    //Escolher o Veículo desejado dentre todos disponíveis
+    private static Veiculo qualVeiculo(ClientePF c){
+        System.out.println("\nDigite a posição do Veículo que deseja:\n");
+        for(int i = 0; i < c.getListaVeiculos().size(); i++){
+            System.out.println("Veículo número " + (i+1) + " :");
+            System.out.println(c.getListaVeiculos().get(i).getPlaca() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= c.getListaVeiculos().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Veiculo v = c.getListaVeiculos().get(num);
+        scan.nextLine();
+
+        return v;
+    }
 
     // //Escolher o Sinistro desejado dentre todos disponíveis
     // private static Sinistro qualSinistro(Seguradora seg){
@@ -203,6 +253,42 @@ public class AppMain {
                     break;
 
                 case ENCERRAR:
+                    System.out.println("Até a próxima!");
+                    break loop;
+
+                default:
+                    System.out.println("Operação Inválida...");
+                    break;
+            }
+        }
+    }
+
+    public static void menu1(Seguradora seg){
+        loop: while(true){
+            System.out.println("\nEscolher Operação em " + seg.getNome() + ":\n" +
+                               "1 - ClientePF\n" +
+                               "2 - ClientePJ\n" +
+                               "3 - Calcular Receita\n" +
+                               "4 - Voltar\n");
+            
+            double num = scan.nextDouble();
+            scan.nextLine();
+            MenuOperacoes operacao = MenuOperacoes.valor(num);
+
+            switch (operacao) {
+                case CLIENTES_PF:
+                    menuCLIPF(seg);
+                    break;
+
+                case CLIENTES_PJ:
+                    //menuCLIPJ(seg);
+                    break;
+
+                case CALCULAR_RECEITA:
+                    seg.calcularReceita();
+                    break;
+
+                case VOLTAR:
                     break loop;
 
                 default:
@@ -212,30 +298,119 @@ public class AppMain {
         }
     }
 
-    public static void menu1(Seguradora seg){
-        System.out.println(seg);
-
-        /*
-
-        //while so acaba quando o operador apertar 0-Sair
+    public static void menuCLIPF(Seguradora seg){
         loop: while(true){
-            System.out.println("\n Digite um número correspondente a uma opção:\n" +
-                               "1- Cadastrar\n" +
-                               "2- Listar\n" +
-                               "3- Excluir\n" +
-                               "4- Gerar Sinistro\n" +
-                               "5- Transferir Seguro\n" +
-                               "6- Calcular Receita Seguradora\n" +
-                               "0- Sair\n");
-
+            System.out.println("\nEscolher Operação:\n" +
+                               "1 - Cadastrar ClientePF\n" +
+                               "2 - Checar ClientePF\n" +
+                               "3 - Cadastrar Veículo\n" +
+                               "4 - Remover Veículo\n" +
+                               "5 - Voltar\n");
+            
             double num = scan.nextDouble();
             scan.nextLine();
+            num = 1 + num/10;
             MenuOperacoes operacao = MenuOperacoes.valor(num);
+            ClientePF c;
 
-            Seguradora seg;
-            Sinistro sin;
-            Cliente c;
+            switch (operacao) {
+                case CLIPF_CAD:
+                    System.out.println("Nome:");
+                    String nome = scan.nextLine();
+                    
+                    if(!Validacao.validarNome(nome)){
+                        System.out.println("Nome Inválido.");
+                        break;
+                    }
+                    System.out.println("Telefone:");
+                    String telefone = scan.nextLine();
 
+                    System.out.println("Endereco:");
+                    String endereco = scan.nextLine();
+
+                    System.out.println("Email:");
+                    String email = scan.nextLine();
+                
+                    System.out.println("CPF:");
+                    String cpf = scan.nextLine();
+
+                    if(!Validacao.validarCPF(cpf)){
+                        System.out.println("CPF Inválido.");
+                        break;
+                    }
+
+                    System.out.println("Gênero:");
+                    String genero = scan.nextLine();
+
+                    System.out.println("Nível de Educação:");
+                    String educacao = scan.nextLine();
+
+                    System.out.println("Data de Nascimento (AAAA-MM-DD):");
+                    String dataNascimento = scan.nextLine();
+
+                    c = new ClientePF(nome, telefone, endereco, email, cpf, genero,
+                                                educacao, LocalDate.parse(dataNascimento));
+
+                    seg.cadastrarCliente(c);
+
+                    System.out.println("Cliente Cadastrado!");
+                    break;
+                
+                case CLIPF_CHECAR:
+                    System.out.println("Cliente:");
+                    c = qualClientePF(seg);
+                    
+                    System.out.println(c);
+                    break;
+
+                case CLIPF_CAD_VEICULO:
+                    System.out.println("Cliente:");
+                    c = qualClientePF(seg);
+
+                    System.out.println("Placa:");
+                    String placa = scan.nextLine();
+
+                    System.out.println("Marca:");
+                    String marca = scan.nextLine();
+
+                    System.out.println("Modelo:");
+                    String modelo = scan.nextLine();
+
+                    System.out.println("Ano de Fabricação:");
+                    int anoFabricacao = scan.nextInt();
+                    scan.nextLine();
+
+                    c.cadastrarVeiculo(new Veiculo(placa, marca, modelo, anoFabricacao));
+                    System.out.println("Vaículo cadastrado.");
+                    break;
+
+                case CLIPF_REM_VEICULO:
+                    System.out.println("Cliente:\n");
+                    c = qualClientePF(seg);
+
+                    System.out.println("Digite a posição do veículo:\n");
+                    Veiculo v = qualVeiculo(c);
+
+                    c.removerVeiculo(v);
+                    System.out.println("Veículo Removido.\n");
+                    break;
+
+                case CLIPF_VOLTAR :
+                    break loop;
+
+                default:
+                    System.out.println("Operação Inválida");
+                    break;
+            }
+        }
+    }
+
+    public static void menuLIST(Seguradora seg){
+        
+    }
+
+
+        /*
             //separação de casos para cada uma das opções de operação
             switch (operacao) {
                 //cadastros
@@ -259,48 +434,7 @@ public class AppMain {
                             System.out.println("ClientePF ou ClientePJ?");
                             String tipo = scan.nextLine();
                             if(tipo.equals("ClientePF")) {
-                                System.out.println("Nome:");
-                                String nome = scan.nextLine();
-
-                                if(!Validacao.validarNome(nome)){
-                                    System.out.println("Nome Inválido.");
-                                    break;
-                                }
-
-                                System.out.println("Endereco:");
-                                String endereco = scan.nextLine();
-
-                                System.out.println("CPF:");
-                                String cpf = scan.nextLine();
-
-                                if(!Validacao.validarCPF(cpf)){
-                                    System.out.println("CPF Inválido.");
-                                    break;
-                                }
-
-                                System.out.println("Masculino, Feminino, Outro:");
-                                String genero = scan.nextLine();
-
-                                System.out.println("Data da Licenca (AAAA-MM-DD):");
-                                String dataLicenca = scan.nextLine();
-
-                                System.out.println("Nível de Educação:");
-                                String educacao = scan.nextLine();
-
-                                System.out.println("Data de Nascimento (AAAA-MM-DD):");
-                                String dataNascimento = scan.nextLine();
-
-                                System.out.println("Classe Econômica:");
-                                String classeEconomica = scan.nextLine();
-
-                                c = new ClientePF(nome, endereco, cpf, genero, LocalDate.parse(dataLicenca),
-                                                  educacao, LocalDate.parse(dataNascimento), classeEconomica);
-
-                                seg.cadastrarCliente(c);
-
-                                System.out.println("Cliente Cadastrado!");
-                                seg.calcularPrecoSeguroCliente();
-                                System.out.println("Seguro:" + c.getValorSeguro());
+                                
                             }
                             else if(tipo.equals("ClientePJ")) {
                                 System.out.println("Nome:");
@@ -483,20 +617,6 @@ public class AppMain {
                             seg.removerCliente(c.getNome());
                             System.out.println("Cliente Removido.\n");
                             break;
-
-                        //excluir um veículo de um cliente
-                        case EXC_VEICULO:
-                            seg = qualSeguradora();
-
-                            System.out.println("Digite a posição do cliente que possui o veículo:\n");
-                            c = qualCliente(seg);
-
-                            System.out.println("Digite a posição do veículo:\n");
-                            Veiculo v = qualVeiculo(c);
-
-                            c.remVeiculo(v);
-                            System.out.println("Veículo Removido.\n");
-                            break;
                         
                         //excluir sinistro de uma seguradora
                         case EXC_SINISTRO:
@@ -555,26 +675,9 @@ public class AppMain {
                     System.out.println("Transferência Realizada\n");
 
                     break;    
-                
-                //calcula a receita de uma seguradora
-                case CALCULAR_RECEITA:
-                    seg = qualSeguradora();
-                    seg.calcularPrecoSeguroCliente();
-                    System.out.println("A receita total é " + seg.calcularReceita());
-                    break;
-                
-                //fecha o menu
-                case SAIR:
-                    System.out.println("Fechando Menu");
-                    break loop;
-                
-                //caso algo dê errado
-                default:
-                    System.out.println("Operação Inválida");
-                    break;
+
             }
         }
         */
-    }
 
 }
