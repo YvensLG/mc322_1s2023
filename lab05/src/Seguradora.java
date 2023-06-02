@@ -30,7 +30,7 @@ public class Seguradora {
 
 	//coloca um novo seguro na lista
 	public boolean gerarSeguro(Seguro seguro){
-		if(!listaSeguros.contains(seguro)){
+		if(!listaSeguros.contains(seguro) && seguro.getSeguradora().equals(this)){
 			listaSeguros.add(seguro);
 			return true;
 		}
@@ -42,6 +42,18 @@ public class Seguradora {
 	public boolean cancelarSeguro(Seguro seguro){
 		if(listaSeguros.contains(seguro)){
 			listaSeguros.remove(seguro);
+
+			for(Condutor c : seguro.getListaCondutores()){
+				for(Sinistro s : c.getListaSinistros()){
+					if(seguro.getListaSinistros().contains(s)){
+						c.getListaSinistros().remove(s);
+						s = null;
+					}
+				}
+			}
+
+			seguro = null;
+
 			return true;
 		}
 		

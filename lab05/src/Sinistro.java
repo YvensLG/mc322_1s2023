@@ -16,6 +16,7 @@ public class Sinistro {
         this.endereco = endereco;
         this.condutor = condutor;
         this.seguro = seguro;
+		seguro.gerarSinistro(this);
     }
 
     //Cria um ID para o Sinistro

@@ -22,6 +22,7 @@ public abstract class Seguro {
         listaSinistros = new ArrayList<Sinistro>();
         listaCondutores = new ArrayList<Condutor>();
         valorMensal = 0;
+        seguradora.gerarSeguro(this);
     }
 
     //Cria um ID para o Seguro
@@ -31,10 +32,18 @@ public abstract class Seguro {
         return id;
     }
 
-    //Desautoriza um Condutor (remove da lista)
+    //Desautoriza um Condutor (remove da lista junto com seus Sinistros)
     public boolean desautorizarCondutor(Condutor cond){
         if(listaCondutores.contains(cond)){
             listaCondutores.remove(cond);
+
+            for(Sinistro s : listaSinistros){
+                if(s.getCondutor().equals(cond)){
+                    listaSinistros.remove(s);
+                    cond.getListaSinistros().remove(s);
+                }
+            }
+
             return true;
         }
         return false;
@@ -52,12 +61,19 @@ public abstract class Seguro {
     //calcula o valor do Seguro (depende se PF ou PJ)
     public abstract double calcularValor();
 
-    //coloca um Sinistro na Lista
+    //coloca um Sinistro na Lista do Seguro e na Lista do Condutor
     public boolean gerarSinistro(Sinistro sinistro){
+        Condutor c = sinistro.getCondutor();
+        autorizarCondutor(c);
+
         if(!listaSinistros.contains(sinistro)){
             listaSinistros.add(sinistro);
+
+            c.getListaSinistros().add(sinistro);
+
             return true;
         }
+
         return false;
     }
 
