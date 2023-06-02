@@ -1,16 +1,21 @@
 public enum MenuOperacoes {
     //lista de operações
+    ESCOLHER (0.1),
+    CRIAR (0.2),
+    ENCERRAR (0.3),
+
     CADASTRAR (1),
     LISTAR (2),
     EXCLUIR (3),
     GERAR_SINISTRO (4),
     TRANSFERIR_SEGURO (5),
     CALCULAR_RECEITA (6),
-    SAIR (0),
 
-    CAD_CLIENTE(1.1),
-    CAD_VEICULO(1.2),
-    CAD_SEGURADORA(1.3),
+    CAD_SEGURADORA(1.1),
+    CAD_CLIENTE(1.2),
+    CAD_VEICULO(1.3),
+    CAD_FROTA(1.4),
+    CAD_SEGURO(1.5),
     CAD_VOLTAR(1.4),
 
     LIST_CLIENTE(2.1),

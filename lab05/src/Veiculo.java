@@ -15,9 +15,9 @@ public class Veiculo {
 	//Retorna as informações do Veículo
 	public String toString() {
         return "Placa: " + this.placa +
-                ", Marca: " + this.marca +
-                ", Modelo: " + this.modelo +
-                ", Ano de Fabricação: " + this.anoFabricacao + "\n";
+                "\nMarca: " + this.marca +
+                "\nModelo: " + this.modelo +
+                "\nAno de Fabricação: " + this.anoFabricacao;
     }
 	
 

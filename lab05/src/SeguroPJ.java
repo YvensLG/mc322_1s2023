@@ -35,7 +35,7 @@ public class SeguroPJ extends Seguro {
 
         info =  super.toString() + 
                 "\nCliente: " + cliente.getNome() +
-                "\nFrota: " + frota.getClass();
+                "\nFrota: " + frota.getCode();
         
         return info;
     }

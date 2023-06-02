@@ -11,81 +11,98 @@ public class AppMain {
     private static ArrayList<Seguradora> seguradoras = new ArrayList<Seguradora>();
 
     public static void main(String[] args) {
-        Seguradora seguradora;
-        Veiculo veiculo;
-        Sinistro sinistro;
-
         //cria seguradora
-        seguradora = new Seguradora("Se segura", "(85) 96284-1639",
-        "naoresponda@sesegura.com", "Fortaleza");
+        Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura",
+                                               "(85) 96284-1639", "Campinas", "naoresponda@sesegura.com");
         
         seguradoras.add(seguradora);
         
+        //cria condutores
+        Condutor condutor1 = new Condutor("769.935.730-24", "João", "(49) 98929-5978",
+                                          "Casa", "joao@gmail.com", LocalDate.of(1990, 10, 21));
+
+        Condutor condutor2 = new Condutor("999.042.420-97", "Maria", "(21) 96811-5908",
+                                          "Prédio", "maria@gmail.com", LocalDate.of(1991, 11, 22));
+
+        //cria veículos
+        Veiculo veiculo = new Veiculo("OSL4P15", "Honda", "Civic", 1999);
+        Veiculo veiculo1 = new Veiculo("ABC1D23", "Ferrari", "Roma", 1500);
+        Veiculo veiculo2 = new Veiculo("PL4C4", "Qualquer", "Carro", 2017);
+        
+        //cria frota e add veiculos a ela
+        Frota frota = new Frota();
+        frota.getListaVeiculos().add(veiculo1);
+        frota.getListaVeiculos().add(veiculo2);
+
         //cria clientePF
-        ClientePF cliente = new ClientePF(
+        ClientePF pessoa = new ClientePF(
             "Yvens",
+            "(92) 99572-4456",
             "Fortaleza",
+            "yvens@gmail.com",
             "323.588.226-04",
             "Masculino",
-            LocalDate.of(2020, 1, 8),
             "Ensino Médio Completo",
-            LocalDate.of(2004, 2, 2),
-            "Muito Rico"
+            LocalDate.of(2004, 2, 2)
         );
+        pessoa.getListaVeiculos().add(veiculo);
+        seguradora.cadastrarCliente(pessoa);
 
         //cria clientePJ
         ClientePJ empresa = new ClientePJ(
             "Empresa Generica",
+            "(94) 98179-4621",
             "Campinas",
+            "empresa@generica.com",
             "56.505.098/0001-93",
             LocalDate.of(1900, 1, 1),
             59
         );
-
-        //adiciona veiculos a PF
-        veiculo = new Veiculo("OSL4P15", "Honda", "Civic", 1999);
-        cliente.addVeiculo(veiculo);
-        veiculo = new Veiculo("ABC1D23", "Ferrari", "Roma", 1500);
-        cliente.addVeiculo(veiculo);
-
-        //adiciona veiculo a PJ
-        veiculo = new Veiculo("PL4C4", "Qualquer", "Carro", 2017);
-        empresa.addVeiculo(veiculo);
-
-        //cadastra clientes na seguradora
-        seguradora.cadastrarCliente(cliente);
+        empresa.getListaFrota().add(frota);
         seguradora.cadastrarCliente(empresa);
 
-        
-        //gera sinistro a PF
-        sinistro = new Sinistro(LocalDate.of(2020, 3, 3), "Avenida 1", seguradora,
-        cliente.getListaVeiculos().get(0), cliente);
-        seguradora.gerarSinistro(sinistro);
-        
-        //gera sinistro a PJ
-        sinistro = new Sinistro(LocalDate.of(2021, 5, 4), "Avenida 2", seguradora,
-        empresa.getListaVeiculos().get(0), empresa);
-        seguradora.gerarSinistro(sinistro);
-        
-        //atualiza valor seguro dos clientes
-        seguradora.calcularPrecoSeguroCliente();
+        //cria Seguros
+        SeguroPF segPF = seguradora.gerarSeguro(LocalDate.of(2011, 4, 3), LocalDate.now(), veiculo, pessoa);
+        SeguroPJ segPJ = seguradora.gerarSeguro(LocalDate.of(2010, 3, 2), LocalDate.now(), frota, empresa);
 
-        //gera e imprime a receita total
-        System.out.println(seguradora.calcularReceita());
+        //cria Sinistro
+        Sinistro sinPF = segPF.gerarSinistro(LocalDate.now(), "aqui", condutor1);
+        Sinistro sinPJ = segPJ.gerarSinistro(LocalDate.now(), "ali", condutor2);
+
+        System.out.println("------------ Seguradora ------------\n" + seguradora + "\n");
+        System.out.println("------------ ClientePF ------------\n" + pessoa + "\n");
+        System.out.println("------------ ClientePJ ------------\n" + empresa + "\n");
+        System.out.println("------------ Condutor ------------\n" + condutor1 + "\n");
+        System.out.println("------------ Frota ------------\n" + frota + "\n");
+        System.out.println("------------ Veiculo ------------\n" + veiculo + "\n");
+        System.out.println("------------ SeguroPF ------------\n" + segPF + "\n");
+        System.out.println("------------ SeguroPJ ------------\n" + segPJ + "\n");
+        System.out.println("------------ Sinistro ------------\n" + sinPF + "\n");
 
         //começa Menu de Operações
         menu();
     }
-
     //Escolher a Seguradora desejada dentre todas disponíveis
     private static Seguradora qualSeguradora(){
         System.out.println("\nDigite a posição da Seguradora que deseja:\n");
         for(int i = 0; i < seguradoras.size(); i++){
-            System.out.println("Seguradora número " + i + " :");
-            System.out.println(seguradoras.get(i) + "\n");
+            System.out.println("Seguradora número " + (i+1) + " :");
+            System.out.println(seguradoras.get(i).getNome() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seguradoras.size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
         }
         
-        Seguradora seg = seguradoras.get(scan.nextInt());
+        Seguradora seg = seguradoras.get(num);
         scan.nextLine();
 
         return seg;
@@ -105,36 +122,100 @@ public class AppMain {
         return c;
     }
 
-    //Escolher o Veículo desejado dentre todos disponíveis
-    private static Veiculo qualVeiculo(Cliente c){
-        System.out.println("\nDigite a posição do Veículo que deseja:\n");
-        for(int i = 0; i < c.getListaVeiculos().size(); i++){
-            System.out.println("Veículo número " + i + " :");
-            System.out.println(c.getListaVeiculos().get(i) + "\n");
-        }
+    // //Escolher o Veículo desejado dentre todos disponíveis
+    // private static Veiculo qualVeiculo(Cliente c){
+    //     System.out.println("\nDigite a posição do Veículo que deseja:\n");
+    //     for(int i = 0; i < c.getListaVeiculos().size(); i++){
+    //         System.out.println("Veículo número " + i + " :");
+    //         System.out.println(c.getListaVeiculos().get(i) + "\n");
+    //     }
 
-        Veiculo v = c.getListaVeiculos().get(scan.nextInt());
-        scan.nextLine();
+    //     Veiculo v = c.getListaVeiculos().get(scan.nextInt());
+    //     scan.nextLine();
 
-        return v;
-    }
+    //     return v;
+    // }
 
-    //Escolher o Sinistro desejado dentre todos disponíveis
-    private static Sinistro qualSinistro(Seguradora seg){
-        System.out.println("\nDigite a posição do Sinistro que deseja:\n");
-        for(int i = 0; i < seg.getListaSinistros().size(); i++){
-            System.out.println("Sinistro número " + i + " :");
-            System.out.println(seg.getListaSinistros().get(i) + "\n");
-        }
+    // //Escolher o Sinistro desejado dentre todos disponíveis
+    // private static Sinistro qualSinistro(Seguradora seg){
+    //     System.out.println("\nDigite a posição do Sinistro que deseja:\n");
+    //     for(int i = 0; i < seg.getListaSinistros().size(); i++){
+    //         System.out.println("Sinistro número " + i + " :");
+    //         System.out.println(seg.getListaSinistros().get(i) + "\n");
+    //     }
 
-        Sinistro s = seg.getListaSinistros().get(scan.nextInt());
-        scan.nextLine();
+    //     Sinistro s = seg.getListaSinistros().get(scan.nextInt());
+    //     scan.nextLine();
 
-        return s;
-    }
+    //     return s;
+    // }
 
     //Menu de Operações
     public static void menu(){
+        System.out.println("\n--------------------------------------------------------------------------------\n");
+        System.out.println("\nPara interagir com o Menu, basta escolher o número correspondente a cada opção\n");
+        System.out.println("\n--------------------------------------------------------------------------------");
+
+        loop: while(true){
+            System.out.println("\nEscolha sua Seguradora ou Crie Uma!\n" +
+                               "1 - Escolher\n" +
+                               "2 - Criar\n" +
+                               "3 - Encerrar\n");
+                               
+            double num = scan.nextDouble()/10;
+            scan.nextLine();
+            MenuOperacoes operacao = MenuOperacoes.valor(num);
+
+            Seguradora seg;
+
+            switch(operacao){
+                case ESCOLHER:
+                    seg = qualSeguradora();
+                    menu1(seg);
+                    
+                    break;
+
+                case CRIAR:
+                    System.out.println("CNPJ da nova seguradora:");
+                    String cnpj = scan.nextLine();
+
+                    if(!Validacao.validarCNPJ(cnpj)){
+                        System.out.println("\nCNPJ Inválido.");
+                        break;
+                    }
+
+                    System.out.println("\nNome da nova seguradora:");
+                    String nome = scan.nextLine();
+
+                    System.out.println("\nTelefone:");
+                    String telefone = scan.nextLine();
+
+                    System.out.println("\nEmail:");
+                    String email = scan.nextLine();
+
+                    System.out.println("\nEndereço:");
+                    String endereco = scan.nextLine();
+
+                    seguradoras.add(new Seguradora(cnpj, nome, telefone, email, endereco));
+
+                    System.out.println("\nSeguradora cadastrada.");
+
+                    break;
+
+                case ENCERRAR:
+                    break loop;
+
+                default:
+                    System.out.println("Operação Inválida");
+                    break;
+            }
+        }
+    }
+
+    public static void menu1(Seguradora seg){
+        System.out.println(seg);
+
+        /*
 
         //while so acaba quando o operador apertar 0-Sair
         loop: while(true){
@@ -493,5 +574,7 @@ public class AppMain {
                     break;
             }
         }
+        */
     }
+
 }

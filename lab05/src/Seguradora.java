@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Seguradora {
@@ -29,13 +30,22 @@ public class Seguradora {
 	}
 
 	//coloca um novo seguro na lista
-	public boolean gerarSeguro(Seguro seguro){
-		if(!listaSeguros.contains(seguro) && seguro.getSeguradora().equals(this)){
-			listaSeguros.add(seguro);
-			return true;
+	public SeguroPF gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Veiculo veiculo, ClientePF cliente){
+		if(!listaClientes.contains(cliente)){
+			return null;
 		}
 		
-		return false;
+		SeguroPF seguro = new SeguroPF(dataInicio, dataFim, this, veiculo, cliente);
+		listaSeguros.add(seguro);
+		
+		return seguro;
+	}
+
+	public SeguroPJ gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Frota frota, ClientePJ cliente){
+		SeguroPJ seguro = new SeguroPJ(dataInicio, dataFim, this, frota, cliente);
+		listaSeguros.add(seguro);
+		
+		return seguro;
 	}
 
 	//remove um seguro da lista

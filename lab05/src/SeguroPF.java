@@ -34,7 +34,7 @@ public class SeguroPF extends Seguro {
 
         info =  super.toString() + 
                 "\nCliente: " + cliente.getNome() +
-                "\nVeículo: " + veiculo;
+                "\nVeículo: " + veiculo.getPlaca();
         
         return info;
     }

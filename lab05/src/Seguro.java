@@ -22,7 +22,6 @@ public abstract class Seguro {
         listaSinistros = new ArrayList<Sinistro>();
         listaCondutores = new ArrayList<Condutor>();
         valorMensal = 0;
-        seguradora.gerarSeguro(this);
     }
 
     //Cria um ID para o Seguro
@@ -62,19 +61,14 @@ public abstract class Seguro {
     public abstract double calcularValor();
 
     //coloca um Sinistro na Lista do Seguro e na Lista do Condutor
-    public boolean gerarSinistro(Sinistro sinistro){
-        Condutor c = sinistro.getCondutor();
-        autorizarCondutor(c);
+    public Sinistro gerarSinistro(LocalDate data, String endereco, Condutor condutor){
+        Sinistro s = new Sinistro(data, endereco, condutor, this);
+        
+        autorizarCondutor(condutor);
+        listaSinistros.add(s);
+        condutor.getListaSinistros().add(s);
 
-        if(!listaSinistros.contains(sinistro)){
-            listaSinistros.add(sinistro);
-
-            c.getListaSinistros().add(sinistro);
-
-            return true;
-        }
-
-        return false;
+        return s;
     }
 
     //Quantidade de Sinistros que os Condutores possuem
@@ -96,10 +90,10 @@ public abstract class Seguro {
         "Seguro número " + this.id + ":" +
         "\nData de Início: " + this.dataInicio +
         "\nData de Fim: " + this.dataFim +
-        "\nValor Mensal: " + getValorMensal() +
+        "\nValor Mensal: " + "R$" + String.format("%.2f", getValorMensal()) +
         "\nSeguradora: " + this.seguradora.getNome() +
-        "\nLista de Sinistros: " + this.listaSinistros +
-        "\nLista de Condutores: " + this.listaCondutores;
+        "\nQuantidade de Sinistros: " + this.listaSinistros.size() +
+        "\nQuantidade de Condutores: " + this.listaCondutores.size();
         
         return info;
     }
