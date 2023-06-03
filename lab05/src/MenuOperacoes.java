@@ -2,13 +2,15 @@ public enum MenuOperacoes {
     //lista de operações
     ESCOLHER (0.1),
     CRIAR (0.2),
-    ENCERRAR (0.3),
+    CHECAR (0.3),
+    ENCERRAR (0.4),
 
     CLIENTES_PF (1),
     CLIENTES_PJ (2),
     SEGURO (3),
     CALCULAR_RECEITA (4),
-    VOLTAR(5),
+    INFO_SEGURADORA (5),
+    VOLTAR(6),
 
     CLIPF_CAD (1.1),
     CLIPF_CHECAR (1.2),
@@ -24,12 +26,14 @@ public enum MenuOperacoes {
     CLIPJ_ATT_FROTA (2.6),
     CLIPJ_VOLTAR (2.7),
 
-    SEG_GERAR (3.1),
-    SEG_CANCELAR (3.2),
-    SEG_AUT_COND (3.3),
-    SEG_DES_COND (3.4),
-    SEG_SINISTRO (3.5),
-    SEG_VOLTAR (3.6),
+    SEG_GERAR_PF (3.1),
+    SEG_GERAR_PJ (3.2),
+    SEG_CANCELAR (3.3),
+    SEG_AUT_COND (3.4),
+    SEG_DES_COND (3.5),
+    SEG_SINISTRO (3.6),
+    SEG_CHECAR (3.7),
+    SEG_VOLTAR (3.8),
 
     ERRO(-1);
 

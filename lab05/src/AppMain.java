@@ -10,6 +10,7 @@ public class AppMain {
     //lista de seguradoras
     private static ArrayList<Seguradora> seguradoras = new ArrayList<Seguradora>();
 
+    //Main
     public static void main(String[] args) {
         //cria seguradora
         Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura",
@@ -80,188 +81,27 @@ public class AppMain {
         System.out.println("------------ Sinistro ------------\n" + sinPF + "\n");
 
         //começa Menu de Operações
-        menu();
-    }
-    //Escolher a Seguradora desejada dentre todas disponíveis
-    private static Seguradora qualSeguradora(){
-        System.out.println("\nDigite a posição da Seguradora que deseja:\n");
-        for(int i = 0; i < seguradoras.size(); i++){
-            System.out.println("Seguradora número " + (i+1) + " :");
-            System.out.println(seguradoras.get(i).getNome() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= seguradoras.size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-        
-        Seguradora seg = seguradoras.get(num);
-        scan.nextLine();
-
-        return seg;
-    }
-
-    //Escolher o ClientePF desejado dentre todos disponíveis
-    private static ClientePF qualClientePF(Seguradora seg){
-        System.out.println("\nDigite a posição do ClientePF que deseja:\n");
-        for(int i = 0; i < seg.getListaClientesPF().size(); i++){
-            System.out.println("Cliente número " + (i+1) + " :");
-            System.out.println(seg.getListaClientesPF().get(i).getNome() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= seg.getListaClientesPF().size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-
-        ClientePF c = seg.getListaClientesPF().get(num);
-        scan.nextLine();
-
-        return c;
-    }
-
-    //Escolher o ClientePJ desejado dentre todos disponíveis
-    private static ClientePJ qualClientePJ(Seguradora seg){
-        System.out.println("\nDigite a posição do ClientePJ que deseja:\n");
-        for(int i = 0; i < seg.getListaClientesPJ().size(); i++){
-            System.out.println("Cliente número " + (i+1) + " :");
-            System.out.println(seg.getListaClientesPJ().get(i).getNome() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= seg.getListaClientesPJ().size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-
-        ClientePJ c = seg.getListaClientesPJ().get(num);
-        scan.nextLine();
-
-        return c;
-    }
-
-    //Escolher o Veículo desejado dentre todos disponíveis
-    private static Veiculo qualVeiculo(ClientePF c){
-        System.out.println("\nDigite a posição do Veículo que deseja:\n");
-        for(int i = 0; i < c.getListaVeiculos().size(); i++){
-            System.out.println("Veículo número " + (i+1) + " :");
-            System.out.println(c.getListaVeiculos().get(i).getPlaca() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= c.getListaVeiculos().size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-
-        Veiculo v = c.getListaVeiculos().get(num);
-        scan.nextLine();
-
-        return v;
-    }
-
-    //Escolher o Veículo desejado dentre todos disponíveis
-    private static Veiculo qualVeiculo(Frota f){
-        System.out.println("\nDigite a posição do Veículo que deseja:\n");
-        for(int i = 0; i < f.getListaVeiculos().size(); i++){
-            System.out.println("Veículo número " + (i+1) + " :");
-            System.out.println(f.getListaVeiculos().get(i).getPlaca() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= f.getListaVeiculos().size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-
-        Veiculo v = f.getListaVeiculos().get(num);
-        scan.nextLine();
-
-        return v;
-    }
-
-    private static Frota qualFrota(ClientePJ c){
-        System.out.println("\nDigite a posição da Frota que deseja:\n");
-        for(int i = 0; i < c.getListaFrota().size(); i++){
-            System.out.println("Frota número " + (i+1) + " :");
-            System.out.println(c.getListaFrota().get(i).getCode() + "\n");
-        }
-
-        int num;
-
-        while(true){
-            num = scan.nextInt()-1;
-            if(num < 0 || num >= c.getListaFrota().size()){
-                System.out.println("\nNúmero inválido, digite outro!\n");
-            }
-            else{
-                break;
-            }
-        }
-
-        Frota f = c.getListaFrota().get(num);
-        scan.nextLine();
-
-        return f;
-    }
-
-    // //Escolher o Sinistro desejado dentre todos disponíveis
-    // private static Sinistro qualSinistro(Seguradora seg){
-    //     System.out.println("\nDigite a posição do Sinistro que deseja:\n");
-    //     for(int i = 0; i < seg.getListaSinistros().size(); i++){
-    //         System.out.println("Sinistro número " + i + " :");
-    //         System.out.println(seg.getListaSinistros().get(i) + "\n");
-    //     }
-
-    //     Sinistro s = seg.getListaSinistros().get(scan.nextInt());
-    //     scan.nextLine();
-
-    //     return s;
-    // }
-
-    //Menu de Operações
-    public static void menu(){
         System.out.println("\n--------------------------------------------------------------------------------\n");
         System.out.println("\nPara interagir com o Menu, basta escolher o número correspondente a cada opção\n");
         System.out.println("\n--------------------------------------------------------------------------------");
 
+        menu();
+    }
+    
+    
+    //----------------------------------------------------------------------
+    //                               Menus
+    //----------------------------------------------------------------------
+
+
+    //Menu Inicial relativo à Seguradora
+    public static void menu(){
         loop: while(true){
             System.out.println("\nEscolha sua Seguradora ou Crie Uma!\n" +
                                "1 - Escolher\n" +
                                "2 - Criar\n" +
-                               "3 - Encerrar\n");
+                               "3 - Checar\n" + 
+                               "4 - Encerrar\n");
                                
             double num = scan.nextDouble()/10;
             scan.nextLine();
@@ -270,12 +110,14 @@ public class AppMain {
             Seguradora seg;
 
             switch(operacao){
+                //Escolhe qual seguradora irá utilizar
                 case ESCOLHER:
                     seg = qualSeguradora();
                     menu1(seg);
                     
                     break;
 
+                //Cria uma seguradora nova
                 case CRIAR:
                     System.out.println("CNPJ da nova seguradora:");
                     String cnpj = scan.nextLine();
@@ -303,10 +145,18 @@ public class AppMain {
 
                     break;
 
+                //Checa Informações de uma Seguradora
+                case CHECAR:
+                    seg = qualSeguradora();
+                    System.out.println(seg);
+                    break;
+
+                //Encerra o Menu
                 case ENCERRAR:
                     System.out.println("Até a próxima!");
                     break loop;
 
+                //Reinicia o Menu caso dê errado
                 default:
                     System.out.println("Operação Inválida...");
                     break;
@@ -314,6 +164,7 @@ public class AppMain {
         }
     }
 
+    //Menu de operações que se pode fazer na Seguradora escolhida
     public static void menu1(Seguradora seg){
         loop: while(true){
             System.out.println("\nEscolher Operação em " + seg.getNome() + ":\n" +
@@ -350,6 +201,7 @@ public class AppMain {
         }
     }
 
+    //SubMenu de operações sobre ClientePF
     public static void menuCLIPF(Seguradora seg){
         loop: while(true){
             System.out.println("\nEscolher Operação:\n" +
@@ -366,6 +218,7 @@ public class AppMain {
             ClientePF c;
 
             switch (operacao) {
+                //Cadastrar um ClientePF
                 case CLIPF_CAD:
                     System.out.println("Nome:");
                     String nome = scan.nextLine();
@@ -408,6 +261,7 @@ public class AppMain {
                     System.out.println("Cliente Cadastrado!");
                     break;
                 
+                //Checa as Informações de um ClientePF
                 case CLIPF_CHECAR:
                     System.out.println("Cliente:");
                     c = qualClientePF(seg);
@@ -415,6 +269,7 @@ public class AppMain {
                     System.out.println(c);
                     break;
 
+                //Cadastra um Veículo ao ClientePF
                 case CLIPF_CAD_VEICULO:
                     System.out.println("Cliente:");
                     c = qualClientePF(seg);
@@ -436,6 +291,7 @@ public class AppMain {
                     System.out.println("Vaículo cadastrado.");
                     break;
 
+                //Remove um veículo de um ClientePF
                 case CLIPF_REM_VEICULO:
                     System.out.println("Cliente:\n");
                     c = qualClientePF(seg);
@@ -446,7 +302,8 @@ public class AppMain {
                     c.removerVeiculo(v);
                     System.out.println("Veículo Removido.\n");
                     break;
-
+                
+                //Volta ao Menu anterior
                 case CLIPF_VOLTAR :
                     break loop;
 
@@ -457,6 +314,7 @@ public class AppMain {
         }
     }
 
+    //SubMenu de operações sobre ClientePJ
     public static void menuCLIPJ(Seguradora seg){
         loop: while(true){
             System.out.println("\nEscolher Operação:\n" +
@@ -476,6 +334,7 @@ public class AppMain {
             Frota frota;
 
             switch (operacao) {
+                //Cadastrar um ClientePJ
                 case CLIPJ_CAD:
                     System.out.println("Nome:");
                     String nome = scan.nextLine();
@@ -516,6 +375,7 @@ public class AppMain {
                     System.out.println("Cliente Cadastrado!");
                     break;
                 
+                //Checa as informações de um ClientePJ
                 case CLIPJ_CHECAR:
                     System.out.println("Cliente:");
                     c = qualClientePJ(seg);
@@ -523,6 +383,7 @@ public class AppMain {
                     System.out.println(c);
                     break;
 
+                //Cadastra uma Frota a um CLientePJ
                 case CLIPJ_CAD_FROTA:
                     System.out.println("Cliente:");
                     c = qualClientePJ(seg);
@@ -533,6 +394,7 @@ public class AppMain {
                     System.out.println("Frota de código " + frota.getCode() + " cadastrada.");
                     break;
 
+                //Adiciona um veículo a uma frota de um ClientePJ
                 case CLIPJ_ADD_FROTA:
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
@@ -560,6 +422,7 @@ public class AppMain {
                     System.out.println("Veículo Adicionado à Frota.\n");
                     break;
 
+                //Remove um veículo de uma Frota
                 case CLIPJ_REM_FROTA:
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
@@ -574,7 +437,8 @@ public class AppMain {
                     
                     System.out.println("Veículo Removido da Frota.\n");
                     break;
-
+                
+                //Deleta uma Frota 
                 case CLIPJ_ATT_FROTA:
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
@@ -589,10 +453,11 @@ public class AppMain {
                     
                     System.out.println("Frota Deletada.\n");
                     break;
-
+                
+                //Volta ao Menu anterior
                 case CLIPF_VOLTAR:
                     break loop;
-
+                
                 default:
                     System.out.println("Operação Inválida");
                     break;
@@ -600,39 +465,158 @@ public class AppMain {
         }
     }
 
+    //SubMenu de operações sobre Seguro
     public static void menuSEG(Seguradora seg){
         loop: while(true){
             System.out.println("\nEscolher Operação:\n" +
-                               "1 - Gerar Seguro\n" +
-                               "2 - Cancelar Seguro\n" +
-                               "3 - Autorizar Condutor\n" +
-                               "4 - Desutorizar Condutor\n" +
-                               "5 - Gerar Sinistro\n" +
-                               "6 - Voltar\n");
+                               "1 - Gerar Seguro para ClientePF\n" +
+                               "2 - Gerar Seguro para ClientePJ\n" +
+                               "3 - Cancelar Seguro\n" +
+                               "4 - Autorizar Condutor\n" +
+                               "5 - Desutorizar Condutor\n" +
+                               "6 - Gerar Sinistro\n" +
+                               "7 - Checar\n" + 
+                               "8 - Voltar\n");
             
             double num = scan.nextDouble();
             scan.nextLine();
             num = 3 + num/10;
             MenuOperacoes operacao = MenuOperacoes.valor(num);
+            ClientePF cf;
+            ClientePJ cj;
+            Veiculo v;
+            Frota f;
+            String dataInicio;
+            String dataFim;
+            Seguro seguro;
+            Condutor cond;
+
 
             switch (operacao) {
-                case SEG_GERAR:
+                //Gera um Seguro de um ClientePF
+                case SEG_GERAR_PF:
+                    System.out.println("Data de Início (AAAA-MM-DD):");
+                    dataInicio = scan.nextLine();
+                    
+                    System.out.println("Data de Fim (AAAA-MM-DD):");
+                    dataFim = scan.nextLine();
+
+                    System.out.println("Cliente:");
+                    cf = qualClientePF(seg);
+
+                    System.out.println("Veículo:");
+                    v = qualVeiculo(cf);
+
+                    seg.gerarSeguro(LocalDate.parse(dataInicio), LocalDate.parse(dataFim), v, cf);
+
+                    System.out.println("Seguro Gerado!");
+                    break;
+
+                //Gera um Seguro de um ClientePJ
+                case SEG_GERAR_PJ:
+                    System.out.println("Data de Início (AAAA-MM-DD):");
+                    dataInicio = scan.nextLine();
+                    
+                    System.out.println("Data de Fim (AAAA-MM-DD):");
+                    dataFim = scan.nextLine();
+
+                    System.out.println("Cliente:");
+                    cj = qualClientePJ(seg);
+
+                    System.out.println("Frota:");
+                    f = qualFrota(cj);
+
+                    seg.gerarSeguro(LocalDate.parse(dataInicio), LocalDate.parse(dataFim), f, cj);
+
+                    System.out.println("Seguro Gerado!");
                     break;
                 
+                //Cancela um Seguro
                 case SEG_CANCELAR:
+                    seguro = qualSeguro(seg);
+                    if(seg.cancelarSeguro(seguro)){
+                        System.out.println("Seguro Cancelado!");
+                    }else{
+                        System.out.println("Não foi possível cancelar o Seguro...");
+                    }
                     break;
-
+                
+                //Autoriza um Condutor ao Seguro
                 case SEG_AUT_COND:
-                    break;
+                    seguro = qualSeguro(seg);
 
+                    System.out.println("Nome do Condutor:");
+                    String nome = scan.nextLine();
+                    
+                    if(!Validacao.validarNome(nome)){
+                        System.out.println("Nome Inválido.");
+                        break;
+                    }
+                    System.out.println("Telefone:");
+                    String telefone = scan.nextLine();
+
+                    System.out.println("Endereco:");
+                    String endereco = scan.nextLine();
+
+                    System.out.println("Email:");
+                    String email = scan.nextLine();
+                
+                    System.out.println("CPF:");
+                    String cpf = scan.nextLine();
+
+                    if(!Validacao.validarCPF(cpf)){
+                        System.out.println("CPF Inválido.");
+                        break;
+                    }
+
+                    System.out.println("Data de Nascimento (AAAA-MM-DD):");
+                    String dataNascimento = scan.nextLine();
+
+                    cond = new Condutor(cpf, nome, telefone, endereco, email, LocalDate.parse(dataNascimento));
+
+                    seguro.autorizarCondutor(cond);
+
+                    System.out.println("Condutor Autorizado!");
+                    break;
+                
+                //Desautoriza um Condutor ao Seguro
                 case SEG_DES_COND:
-                    break;
+                    seguro = qualSeguro(seg);
+                    cond = qualCondutor(seguro);
 
+                    if(seguro.desautorizarCondutor(cond)){
+                        System.out.println("Condutor Desautorizado!");
+                    }else{
+                        System.out.println("Não foi possível desautorizar o Condutor...");
+                    }
+
+                    break;
+                
+                //Gera um Sinistro nesse Seguro
                 case SEG_SINISTRO:
-                    break;
+                    seguro = qualSeguro(seg);
+                    cond = qualCondutor(seguro);
+                    System.out.println("Data do Sinistro (AAAA-MM-DD):");
+                    String data = scan.nextLine();
+                    
+                    System.out.println("Endereço:");
+                    endereco = scan.nextLine();
 
+                    int a = seguro.gerarSinistro(LocalDate.parse(data), endereco, cond).getId();
+                    
+                    System.out.println("Sinistro de Id " + a + " gerado!");
+                    break;
+                
+                //Volta ao Menu Anterior
                 case SEG_VOLTAR:
                     break loop;
+                
+                //Checa as Informações de um Seguro em Específico
+                case SEG_CHECAR:
+                    seguro = qualSeguro(seg);
+                    System.out.println(seg);
+
+                    break;
 
                 default:
                     System.out.println("Operação Inválida");
@@ -641,74 +625,218 @@ public class AppMain {
         }
     }
 
-        /*
-            //separação de casos para cada uma das opções de operação
-            switch (operacao) {
-                
-                //listas
-                case LISTAR:
-                    System.out.println("\n Digite um número correspondente a uma opção:\n" +
-                                            "1- Listar Clientes por Seguradora\n" +
-                                            "2- Listar Sinistros por Seguradora\n" +
-                                            "3- Listar Sinistros por Cliente\n" +
-                                            "4- Listar Veículos por Cliente\n" +
-                                            "5- Listar Veículos por Seguradora\n" +
-                                            "6- Voltar\n");
-                                            
-                    double numL = scan.nextDouble();
-                    scan.nextLine();
-                    numL = num + numL/10;
-                    MenuOperacoes opL = MenuOperacoes.valor(numL);
-                    switch (opL) {
-                        //listar clientes de uma seguradora (dividido entre PF e PJ)
-                        case LIST_CLIENTE:
-                            seg = qualSeguradora();
+    
+    //----------------------------------------------------------------------
+    //                         Funções Utilizadas
+    //----------------------------------------------------------------------
 
-                            System.out.println("ClientePF ou ClientePJ?:\n");
-                            String P = scan.nextLine();
 
-                            seg.listarClientes(P);
-                            break;
-                        
-                        //listar sinistros de um Cliente
-                        case LIST_SINISTRO_CLI:
-                            seg = qualSeguradora();
-                            c = qualCliente(seg);
+    //Escolher a Seguradora desejada dentre todas disponíveis
+    private static Seguradora qualSeguradora(){
+        System.out.println("\nDigite a posição da Seguradora que deseja:\n");
+        for(int i = 0; i < seguradoras.size(); i++){
+            System.out.println("Seguradora número " + (i+1) + " :");
+            System.out.println(seguradoras.get(i).getNome() + "\n");
+        }
 
-                            seg.visualizarSinistro(c.getNome());
-                            break;
-                        
-                        //listar sinistros de uma seguradora
-                        case LIST_SINISTRO_SEG:
-                            seg = qualSeguradora();
-                            seg.listarSinistros();
-                            break;
+        int num;
 
-                        //listar veículos de um cliente
-                        case LIST_VEICULO_CLI:
-                            seg = qualSeguradora();
-                            c = qualCliente(seg);
-
-                            System.out.println(c.getListaVeiculos());
-                            break;
-                        
-                        //listar veículos de uma seguradora
-                        case LIST_VEICULO_SEG:
-                            seg = qualSeguradora();
-                            seg.listarVeiculos();
-                            break;
-                        //voltar ao menu principal
-                        case LIST_VOLTAR:
-                            break;
-                        
-                        //caso algo dê errado
-                        default: 
-                            System.out.println("Operação Inválida");
-                            break;
-                    }
-                    break;    
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seguradoras.size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
             }
         }
-        */
+        
+        Seguradora seg = seguradoras.get(num);
+        scan.nextLine();
+
+        return seg;
+    }
+
+    //Escolher o ClientePF desejado dentre todos disponíveis da Seguradora
+    private static ClientePF qualClientePF(Seguradora seg){
+        System.out.println("\nDigite a posição do ClientePF que deseja:\n");
+        for(int i = 0; i < seg.getListaClientesPF().size(); i++){
+            System.out.println("Cliente número " + (i+1) + " :");
+            System.out.println(seg.getListaClientesPF().get(i).getNome() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seg.getListaClientesPF().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        ClientePF c = seg.getListaClientesPF().get(num);
+        scan.nextLine();
+
+        return c;
+    }
+
+    //Escolher o ClientePJ desejado dentre todos disponíveis da Seguradora
+    private static ClientePJ qualClientePJ(Seguradora seg){
+        System.out.println("\nDigite a posição do ClientePJ que deseja:\n");
+        for(int i = 0; i < seg.getListaClientesPJ().size(); i++){
+            System.out.println("Cliente número " + (i+1) + " :");
+            System.out.println(seg.getListaClientesPJ().get(i).getNome() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seg.getListaClientesPJ().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        ClientePJ c = seg.getListaClientesPJ().get(num);
+        scan.nextLine();
+
+        return c;
+    }
+
+    //Escolher o Veículo desejado dentre todos disponíveis do ClientePF
+    private static Veiculo qualVeiculo(ClientePF c){
+        System.out.println("\nDigite a posição do Veículo que deseja:\n");
+        for(int i = 0; i < c.getListaVeiculos().size(); i++){
+            System.out.println("Veículo número " + (i+1) + " :");
+            System.out.println(c.getListaVeiculos().get(i).getPlaca() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= c.getListaVeiculos().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Veiculo v = c.getListaVeiculos().get(num);
+        scan.nextLine();
+
+        return v;
+    }
+
+    //Escolher o Veículo desejado dentre todos disponíveis da Frota
+    private static Veiculo qualVeiculo(Frota f){
+        System.out.println("\nDigite a posição do Veículo que deseja:\n");
+        for(int i = 0; i < f.getListaVeiculos().size(); i++){
+            System.out.println("Veículo número " + (i+1) + " :");
+            System.out.println(f.getListaVeiculos().get(i).getPlaca() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= f.getListaVeiculos().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Veiculo v = f.getListaVeiculos().get(num);
+        scan.nextLine();
+
+        return v;
+    }
+
+    //Escolher a Frota desejada dentre todas as disponíveis do ClientePJ
+    private static Frota qualFrota(ClientePJ c){
+        System.out.println("\nDigite a posição da Frota que deseja:\n");
+        for(int i = 0; i < c.getListaFrota().size(); i++){
+            System.out.println("Frota número " + (i+1) + " :");
+            System.out.println(c.getListaFrota().get(i).getCode() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= c.getListaFrota().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Frota f = c.getListaFrota().get(num);
+        scan.nextLine();
+
+        return f;
+    }
+
+    //Escolher o Seguro desejado dentre todos os disponíveis da Seguradora
+    private static Seguro qualSeguro(Seguradora seg){
+        System.out.println("\nDigite a posição do Seguro que deseja:\n");
+        for(int i = 0; i < seg.getListaSeguros().size(); i++){
+            System.out.println("Seguro número " + (i+1) + " :");
+            System.out.println(seg.getListaSeguros().get(i).getId() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seg.getListaSeguros().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Seguro s = seg.getListaSeguros().get(num);
+        scan.nextLine();
+
+        return s;
+    }
+ 
+    //Escolher o Condutor desejado dentre todos os disponíveis do Seguro
+    private static Condutor qualCondutor(Seguro seguro){
+        System.out.println("\nDigite a posição do Condutor que deseja:\n");
+        for(int i = 0; i < seguro.getListaCondutores().size(); i++){
+            System.out.println("Condutor número " + (i+1) + " :");
+            System.out.println(seguro.getListaCondutores().get(i).getNome() + "\n");
+        }
+
+        int num;
+
+        while(true){
+            num = scan.nextInt()-1;
+            if(num < 0 || num >= seguro.getListaCondutores().size()){
+                System.out.println("\nNúmero inválido, digite outro!\n");
+            }
+            else{
+                break;
+            }
+        }
+
+        Condutor cond = seguro.getListaCondutores().get(num);
+        scan.nextLine();
+
+        return cond;
+    }
 
 }
