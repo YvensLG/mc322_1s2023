@@ -97,10 +97,10 @@ public class AppMain {
     //Menu Inicial relativo à Seguradora
     public static void menu(){
         loop: while(true){
-            System.out.println("\nEscolha sua Seguradora ou Crie Uma!\n" +
-                               "1 - Escolher\n" +
-                               "2 - Criar\n" +
-                               "3 - Checar\n" + 
+            System.out.println("\nEscolher Operação no Menu de Seguradoras!\n" +
+                               "1 - Escolher Seguradora\n" +
+                               "2 - Criar Seguradora\n" +
+                               "3 - Checar Seguradora\n" + 
                                "4 - Encerrar\n");
                                
             double num = scan.nextDouble()/10;
@@ -112,6 +112,11 @@ public class AppMain {
             switch(operacao){
                 //Escolhe qual seguradora irá utilizar
                 case ESCOLHER:
+                    if(seguradoras.size() == 0){
+                        System.out.println("Não há Seguradoras Disponíveis...");
+                        break;
+                    }
+
                     seg = qualSeguradora();
                     menu1(seg);
                     
@@ -147,6 +152,10 @@ public class AppMain {
 
                 //Checa Informações de uma Seguradora
                 case CHECAR:
+                    if(seguradoras.size() == 0){
+                        System.out.println("Não há Seguradoras Disponíveis...");
+                        break;
+                    }
                     seg = qualSeguradora();
                     System.out.println(seg);
                     break;
@@ -168,29 +177,44 @@ public class AppMain {
     public static void menu1(Seguradora seg){
         loop: while(true){
             System.out.println("\nEscolher Operação em " + seg.getNome() + ":\n" +
-                               "1 - ClientePF\n" +
-                               "2 - ClientePJ\n" +
-                               "3 - Seguro\n" +
-                               "4 - Calcular Receita\n" +
-                               "5 - Voltar\n");
+                               "1 - Menu do ClientePF\n" +
+                               "2 - Menu do ClientePJ\n" +
+                               "3 - Menu do Seguro\n" +
+                               "4 - Calcular Valor da Receita\n" +
+                               "5 - Checar Informações da Seguradora\n" +
+                               "6 - Voltar\n");
             
             double num = scan.nextDouble();
             scan.nextLine();
             MenuOperacoes operacao = MenuOperacoes.valor(num);
 
             switch (operacao) {
+                //entra no submenu de ClientePF
                 case CLIENTES_PF:
                     menuCLIPF(seg);
                     break;
 
+                //entra no submenu de ClientePJ
                 case CLIENTES_PJ:
-                    //menuCLIPJ(seg);
+                    menuCLIPJ(seg);
                     break;
 
+                //Entra no submenu de Seguros
+                case SEGURO:
+                    menuSEGURO(seg);
+                    break;
+
+                //Calcula a Receita Final
                 case CALCULAR_RECEITA:
                     seg.calcularReceita();
                     break;
 
+                //Mostra as Informações da Seguradora
+                case INFO_SEGURADORA:
+                    System.out.println(seg);
+                    break;
+
+                //Volta ao Menu Anterior
                 case VOLTAR:
                     break loop;
 
@@ -204,7 +228,7 @@ public class AppMain {
     //SubMenu de operações sobre ClientePF
     public static void menuCLIPF(Seguradora seg){
         loop: while(true){
-            System.out.println("\nEscolher Operação:\n" +
+            System.out.println("\nEscolher Operação no Menu do ClientePF:\n" +
                                "1 - Cadastrar ClientePF\n" +
                                "2 - Checar ClientePF\n" +
                                "3 - Cadastrar Veículo\n" +
@@ -263,6 +287,10 @@ public class AppMain {
                 
                 //Checa as Informações de um ClientePF
                 case CLIPF_CHECAR:
+                    if(seg.getListaClientesPF().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
                     System.out.println("Cliente:");
                     c = qualClientePF(seg);
                     
@@ -271,6 +299,10 @@ public class AppMain {
 
                 //Cadastra um Veículo ao ClientePF
                 case CLIPF_CAD_VEICULO:
+                    if(seg.getListaClientesPF().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
                     System.out.println("Cliente:");
                     c = qualClientePF(seg);
 
@@ -293,8 +325,17 @@ public class AppMain {
 
                 //Remove um veículo de um ClientePF
                 case CLIPF_REM_VEICULO:
+                    if(seg.getListaClientesPF().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
                     System.out.println("Cliente:\n");
                     c = qualClientePF(seg);
+
+                    if(c.getListaVeiculos().size() == 0){
+                        System.out.println("Não há Veículos Disponíveis...");
+                        break;
+                    }
 
                     System.out.println("Digite a posição do veículo:\n");
                     Veiculo v = qualVeiculo(c);
@@ -317,7 +358,7 @@ public class AppMain {
     //SubMenu de operações sobre ClientePJ
     public static void menuCLIPJ(Seguradora seg){
         loop: while(true){
-            System.out.println("\nEscolher Operação:\n" +
+            System.out.println("\nEscolher Operação no Menu do ClientePJ:\n" +
                                "1 - Cadastrar ClientePJ\n" +
                                "2 - Checar ClientePJ\n" +
                                "3 - Cadastrar Frota\n" +
@@ -377,6 +418,11 @@ public class AppMain {
                 
                 //Checa as informações de um ClientePJ
                 case CLIPJ_CHECAR:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
+
                     System.out.println("Cliente:");
                     c = qualClientePJ(seg);
                     
@@ -385,6 +431,11 @@ public class AppMain {
 
                 //Cadastra uma Frota a um CLientePJ
                 case CLIPJ_CAD_FROTA:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
+
                     System.out.println("Cliente:");
                     c = qualClientePJ(seg);
 
@@ -396,8 +447,17 @@ public class AppMain {
 
                 //Adiciona um veículo a uma frota de um ClientePJ
                 case CLIPJ_ADD_FROTA:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
+
+                    if(c.getListaFrota().size() == 0){
+                        System.out.println("Não há Frotas Disponíveis...");
+                        break;
+                    }
 
                     System.out.println("Digite a posição da frota:\n");
                     frota = qualFrota(c);
@@ -424,12 +484,24 @@ public class AppMain {
 
                 //Remove um veículo de uma Frota
                 case CLIPJ_REM_FROTA:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
 
+                    if(c.getListaFrota().size() == 0){
+                        System.out.println("Não há Frotas Disponíveis...");
+                        break;
+                    }
                     System.out.println("Digite a posição da frota:\n");
                     frota = qualFrota(c);
 
+                    if(frota.getListaVeiculos().size() == 0){
+                        System.out.println("Não há Veículos Disponíveis...");
+                        break;
+                    }
                     System.out.println("Digite a posição do veículo:\n");
                     veiculo = qualVeiculo(frota);
 
@@ -440,14 +512,21 @@ public class AppMain {
                 
                 //Deleta uma Frota 
                 case CLIPJ_ATT_FROTA:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
+
                     System.out.println("Cliente:\n");
                     c = qualClientePJ(seg);
 
+                    if(c.getListaFrota().size() == 0){
+                        System.out.println("Não há Frotas Disponíveis...");
+                        break;
+                    }
+
                     System.out.println("Digite a posição da frota:\n");
                     frota = qualFrota(c);
-
-                    System.out.println("Digite a posição do veículo:\n");
-                    veiculo = qualVeiculo(frota);
 
                     c.atualizarFrota(frota);
                     
@@ -455,7 +534,7 @@ public class AppMain {
                     break;
                 
                 //Volta ao Menu anterior
-                case CLIPF_VOLTAR:
+                case CLIPJ_VOLTAR:
                     break loop;
                 
                 default:
@@ -466,16 +545,16 @@ public class AppMain {
     }
 
     //SubMenu de operações sobre Seguro
-    public static void menuSEG(Seguradora seg){
+    public static void menuSEGURO(Seguradora seg){
         loop: while(true){
-            System.out.println("\nEscolher Operação:\n" +
+            System.out.println("\nEscolher Operação no Menu de Seguros:\n" +
                                "1 - Gerar Seguro para ClientePF\n" +
                                "2 - Gerar Seguro para ClientePJ\n" +
                                "3 - Cancelar Seguro\n" +
                                "4 - Autorizar Condutor\n" +
-                               "5 - Desutorizar Condutor\n" +
+                               "5 - Desautorizar Condutor\n" +
                                "6 - Gerar Sinistro\n" +
-                               "7 - Checar\n" + 
+                               "7 - Checar Seguro\n" + 
                                "8 - Voltar\n");
             
             double num = scan.nextDouble();
@@ -495,17 +574,27 @@ public class AppMain {
             switch (operacao) {
                 //Gera um Seguro de um ClientePF
                 case SEG_GERAR_PF:
+                    if(seg.getListaClientesPF().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
+                    
+                    System.out.println("Cliente:");
+                    cf = qualClientePF(seg);
+                    
+                    if(cf.getListaVeiculos().size() == 0){
+                        System.out.println("Não há Veículos Disponíveis...");
+                        break;
+                    }
+                    
+                    System.out.println("Veículo:");
+                    v = qualVeiculo(cf);
+                    
                     System.out.println("Data de Início (AAAA-MM-DD):");
                     dataInicio = scan.nextLine();
                     
                     System.out.println("Data de Fim (AAAA-MM-DD):");
                     dataFim = scan.nextLine();
-
-                    System.out.println("Cliente:");
-                    cf = qualClientePF(seg);
-
-                    System.out.println("Veículo:");
-                    v = qualVeiculo(cf);
 
                     seg.gerarSeguro(LocalDate.parse(dataInicio), LocalDate.parse(dataFim), v, cf);
 
@@ -514,17 +603,27 @@ public class AppMain {
 
                 //Gera um Seguro de um ClientePJ
                 case SEG_GERAR_PJ:
+                    if(seg.getListaClientesPJ().size() == 0){
+                        System.out.println("Não há Clientes Disponíveis...");
+                        break;
+                    }
+
+                    System.out.println("Cliente:");
+                    cj = qualClientePJ(seg);
+
+                    if(cj.getListaFrota().size() == 0){
+                        System.out.println("Não há Frotas Disponíveis...");
+                        break;
+                    }
+
+                    System.out.println("Frota:");
+                    f = qualFrota(cj);
+
                     System.out.println("Data de Início (AAAA-MM-DD):");
                     dataInicio = scan.nextLine();
                     
                     System.out.println("Data de Fim (AAAA-MM-DD):");
                     dataFim = scan.nextLine();
-
-                    System.out.println("Cliente:");
-                    cj = qualClientePJ(seg);
-
-                    System.out.println("Frota:");
-                    f = qualFrota(cj);
 
                     seg.gerarSeguro(LocalDate.parse(dataInicio), LocalDate.parse(dataFim), f, cj);
 
@@ -533,16 +632,26 @@ public class AppMain {
                 
                 //Cancela um Seguro
                 case SEG_CANCELAR:
+                    if(seg.getListaSeguros().size() == 0){
+                        System.out.println("Não há Seguros Disponíveis...");
+                        break;
+                    }
                     seguro = qualSeguro(seg);
+
                     if(seg.cancelarSeguro(seguro)){
                         System.out.println("Seguro Cancelado!");
                     }else{
                         System.out.println("Não foi possível cancelar o Seguro...");
                     }
+
                     break;
                 
                 //Autoriza um Condutor ao Seguro
                 case SEG_AUT_COND:
+                    if(seg.getListaSeguros().size() == 0){
+                        System.out.println("Não há Seguros Disponíveis...");
+                        break;
+                    }
                     seguro = qualSeguro(seg);
 
                     System.out.println("Nome do Condutor:");
@@ -581,7 +690,16 @@ public class AppMain {
                 
                 //Desautoriza um Condutor ao Seguro
                 case SEG_DES_COND:
+                    if(seg.getListaSeguros().size() == 0){
+                        System.out.println("Não há Seguros Disponíveis...");
+                        break;
+                    }
                     seguro = qualSeguro(seg);
+
+                    if(seguro.getListaCondutores().size() == 0){
+                        System.out.println("Não há Condutores Disponíveis...");
+                        break;
+                    }
                     cond = qualCondutor(seguro);
 
                     if(seguro.desautorizarCondutor(cond)){
@@ -594,8 +712,18 @@ public class AppMain {
                 
                 //Gera um Sinistro nesse Seguro
                 case SEG_SINISTRO:
+                    if(seg.getListaSeguros().size() == 0){
+                        System.out.println("Não há Seguros Disponíveis...");
+                        break;
+                    }
                     seguro = qualSeguro(seg);
+
+                    if(seguro.getListaCondutores().size() == 0){
+                        System.out.println("Não há Condutores Disponíveis...");
+                        break;
+                    }
                     cond = qualCondutor(seguro);
+                    
                     System.out.println("Data do Sinistro (AAAA-MM-DD):");
                     String data = scan.nextLine();
                     
@@ -607,16 +735,20 @@ public class AppMain {
                     System.out.println("Sinistro de Id " + a + " gerado!");
                     break;
                 
+                //Checa as Informações de um Seguro em Específico
+                case SEG_CHECAR:
+                    if(seg.getListaSeguros().size() == 0){
+                        System.out.println("Não há Seguros Disponíveis...");
+                        break;
+                    }
+                    seguro = qualSeguro(seg);
+                    System.out.println(seguro);
+
+                    break;
+
                 //Volta ao Menu Anterior
                 case SEG_VOLTAR:
                     break loop;
-                
-                //Checa as Informações de um Seguro em Específico
-                case SEG_CHECAR:
-                    seguro = qualSeguro(seg);
-                    System.out.println(seg);
-
-                    break;
 
                 default:
                     System.out.println("Operação Inválida");
