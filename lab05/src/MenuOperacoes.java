@@ -6,8 +6,9 @@ public enum MenuOperacoes {
 
     CLIENTES_PF (1),
     CLIENTES_PJ (2),
-    CALCULAR_RECEITA (3),
-    VOLTAR(4),
+    SEGURO (3),
+    CALCULAR_RECEITA (4),
+    VOLTAR(5),
 
     CLIPF_CAD (1.1),
     CLIPF_CHECAR (1.2),
@@ -16,11 +17,19 @@ public enum MenuOperacoes {
     CLIPF_VOLTAR (1.5),
 
     CLIPJ_CAD (2.1),
-    CAD_FROTA (2.2),
-    ADD_FROTA (2.3),
-    REM_FROTA (2.4),
-    ATT_FROTA (2.5),
-    CLIPJ_VOLTAR (2.6),
+    CLIPJ_CHECAR (2.2),
+    CLIPJ_CAD_FROTA (2.3),
+    CLIPJ_ADD_FROTA (2.4),
+    CLIPJ_REM_FROTA (2.5),
+    CLIPJ_ATT_FROTA (2.6),
+    CLIPJ_VOLTAR (2.7),
+
+    SEG_GERAR (3.1),
+    SEG_CANCELAR (3.2),
+    SEG_AUT_COND (3.3),
+    SEG_DES_COND (3.4),
+    SEG_SINISTRO (3.5),
+    SEG_VOLTAR (3.6),
 
     ERRO(-1);
 
