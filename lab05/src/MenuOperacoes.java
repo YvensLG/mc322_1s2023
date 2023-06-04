@@ -2,8 +2,7 @@ public enum MenuOperacoes {
     //lista de operações
     ESCOLHER (0.1),
     CRIAR (0.2),
-    CHECAR (0.3),
-    ENCERRAR (0.4),
+    ENCERRAR (0.3),
 
     CLIENTES_PF (1),
     CLIENTES_PJ (2),

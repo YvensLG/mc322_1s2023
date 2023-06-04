@@ -100,8 +100,7 @@ public class AppMain {
             System.out.println("\nEscolher Operação no Menu de Seguradoras!\n" +
                                "1 - Escolher Seguradora\n" +
                                "2 - Criar Seguradora\n" +
-                               "3 - Checar Seguradora\n" + 
-                               "4 - Encerrar\n");
+                               "3 - Encerrar\n");
                                
             double num = scan.nextDouble()/10;
             scan.nextLine();
@@ -148,16 +147,6 @@ public class AppMain {
 
                     System.out.println("\nSeguradora cadastrada.");
 
-                    break;
-
-                //Checa Informações de uma Seguradora
-                case CHECAR:
-                    if(seguradoras.size() == 0){
-                        System.out.println("Não há Seguradoras Disponíveis...");
-                        break;
-                    }
-                    seg = qualSeguradora();
-                    System.out.println(seg);
                     break;
 
                 //Encerra o Menu

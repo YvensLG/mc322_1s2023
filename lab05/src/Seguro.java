@@ -36,10 +36,12 @@ public abstract class Seguro {
         if(listaCondutores.contains(cond)){
             listaCondutores.remove(cond);
 
-            for(Sinistro s : listaSinistros){
+            ArrayList<Sinistro> aux = new ArrayList<Sinistro>(listaSinistros);
+
+            for(Sinistro s : aux){
                 if(s.getCondutor().equals(cond)){
-                    listaSinistros.remove(s);
                     cond.getListaSinistros().remove(s);
+                    listaSinistros.remove(s);
                 }
             }
 
