@@ -7,6 +7,7 @@ public class Seguradora {
 	private String telefone;
 	private String endereco;
 	private String email;
+	private String pasta;
 	private ArrayList<ClientePJ> listaClientesPJ;
 	private ArrayList<ClientePF> listaClientesPF;
 	private ArrayList<Seguro> listaSeguros;
@@ -27,6 +28,7 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.email = email;
+		this.pasta = pasta;
 		this.listaClientesPJ = new ArrayList<ClientePJ>();
 		this.listaClientesPF = new ArrayList<ClientePF>();
 		this.listaSeguros = new ArrayList<Seguro>();
@@ -200,6 +202,9 @@ public class Seguradora {
 	//
 	public void lerDados(){
 		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
+		this.arquivoSeguro = new ArquivoSeguro(pasta);
+		this.arquivoSinistro = new ArquivoSinistro(pasta);
+
 		for(String s : arquivoVeiculo.lerArquivo()){
 			Veiculo v = arquivoVeiculo.converteString(s);
 			listaVeiculos.add(v);
@@ -228,6 +233,8 @@ public class Seguradora {
 					p.first().cadastrarVeiculo(v);
 				}
 			}
+
+			this.cadastrarCliente(p.first());
 		}
 
 		for(String s : arquivoClientePJ.lerArquivo()){
@@ -238,6 +245,8 @@ public class Seguradora {
 					p.first().cadastrarFrota(f);
 				}
 			}
+
+			this.cadastrarCliente(p.first());
 		}
 
 		for(String s : arquivoCondutor.lerArquivo()){
@@ -338,6 +347,14 @@ public class Seguradora {
 
 	public void setListaSeguros(ArrayList<Seguro> listaSeguros) {
 		this.listaSeguros = listaSeguros;
+	}
+
+	public ArrayList<Condutor> getListaCondutores() {
+		return this.listaCondutores;
+	}
+
+	public void setListaCondutores(ArrayList<Condutor> listaCondutores) {
+		this.listaCondutores = listaCondutores;
 	}
 
 }

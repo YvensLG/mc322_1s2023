@@ -14,16 +14,19 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
         String str = pasta + "//sinistros.csv";
         this.file = new File(str);
         try {
-            boolean value = file.createNewFile();
+            boolean value = file.delete();
+            
             if (value) {
-                System.out.println("Arquivo sinistros.csv criado.");
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write("ID,DATA,ENDERECO,CPF_CONDUTOR,ID_SEGURO\n");
-                writer.close();
+                System.out.println("Arquivo sinistros.csv recriado.");
             }
             else {
-                System.out.println("Arquivo sinistros.csv já existe.");
+                System.out.println("Arquivo sinistros.csv criado.");
             }
+
+            file.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write("ID,DATA,ENDERECO,CPF_CONDUTOR,ID_SEGURO\n");
+            writer.close();
         }
         catch(Exception e) {
             System.out.println("Algum erro inesperado ocorreu.");
@@ -32,12 +35,12 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
     
     public boolean gravarArquivo (Sinistro s){
         try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
             
             String str = s.getId() + "," + s.getData() + "," + s.getEndereco() + "," + 
             s.getCondutor().getCpf() + "," + s.getSeguro().getId();
 
-            writer.write(str);
+            writer.write(str + '\n');
             writer.close();
             return true;
 

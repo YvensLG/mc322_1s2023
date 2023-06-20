@@ -12,75 +12,40 @@ public class AppMain {
     //Main
     public static void main(String[] args) {
         
-        System.exit(0);
         //cria seguradora
-        Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura",
-                                               "(85) 96284-1639", "Campinas", "naoresponda@sesegura.com");
+        Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura", "(85) 96284-1639", 
+                                               "Campinas", "naoresponda@sesegura.com", "arquivos");
         
         seguradoras.add(seguradora);
+
+        //instancia ClientesPF/PJ, Veiculos, Frotas e Condutores do arquivo
+        seguradora.lerDados();
+
         
-        //cria condutores
-        Condutor condutor1 = new Condutor("769.935.730-24", "João", "(49) 98929-5978",
-                                          "Casa", "joao@gmail.com", LocalDate.of(1990, 10, 21));
-
-        Condutor condutor2 = new Condutor("999.042.420-97", "Maria", "(21) 96811-5908",
-                                          "Prédio", "maria@gmail.com", LocalDate.of(1991, 11, 22));
-
-        //cria veículos
-        Veiculo veiculo = new Veiculo("OSL4P15", "Honda", "Civic", 1999);
-        Veiculo veiculo1 = new Veiculo("ABC1D23", "Ferrari", "Roma", 1500);
-        Veiculo veiculo2 = new Veiculo("PL4C4", "Qualquer", "Carro", 2017);
-        
-        //cria frota e add veiculos a ela
-        Frota frota = new Frota();
-        frota.getListaVeiculos().add(veiculo1);
-        frota.getListaVeiculos().add(veiculo2);
-
-        //cria clientePF
-        ClientePF pessoa = new ClientePF(
-            "Yvens",
-            "(92) 99572-4456",
-            "Fortaleza",
-            "yvens@gmail.com",
-            "323.588.226-04",
-            "Masculino",
-            "Ensino Médio Completo",
-            LocalDate.of(2004, 2, 2)
-        );
-        pessoa.getListaVeiculos().add(veiculo);
-        seguradora.cadastrarCliente(pessoa);
-
-        //cria clientePJ
-        ClientePJ empresa = new ClientePJ(
-            "Empresa Generica",
-            "(94) 98179-4621",
-            "Campinas",
-            "empresa@generica.com",
-            "56.505.098/0001-93",
-            LocalDate.of(1900, 1, 1),
-            59
-        );
-        empresa.getListaFrota().add(frota);
-        seguradora.cadastrarCliente(empresa);
-
         //cria Seguros
-        SeguroPF segPF = seguradora.gerarSeguro(LocalDate.of(2011, 4, 3), LocalDate.now(), veiculo, pessoa);
-        SeguroPJ segPJ = seguradora.gerarSeguro(LocalDate.of(2010, 3, 2), LocalDate.now(), frota, empresa);
+        SeguroPF segPF = seguradora.gerarSeguro(LocalDate.of(2011, 4, 3), LocalDate.now(),
+        seguradora.getListaClientesPF().get(0).getListaVeiculos().get(0), seguradora.getListaClientesPF().get(0));
 
+        SeguroPJ segPJ = seguradora.gerarSeguro(LocalDate.of(2010, 3, 2), LocalDate.now(),
+        seguradora.getListaClientesPJ().get(0).getListaFrota().get(0), seguradora.getListaClientesPJ().get(0));
+        
         //cria Sinistro
-        Sinistro sinPF = segPF.gerarSinistro(LocalDate.now(), "aqui", condutor1);
-        Sinistro sinPJ = segPJ.gerarSinistro(LocalDate.now(), "ali", condutor2);
+        Sinistro sinPF = segPF.gerarSinistro(LocalDate.now(), "aqui", seguradora.getListaCondutores().get(0));
+        Sinistro sinPJ = segPJ.gerarSinistro(LocalDate.now(), "ali", seguradora.getListaCondutores().get(1));
 
-        System.out.println("------------ Seguradora ------------\n" + seguradora + "\n");
-        System.out.println("------------ ClientePF ------------\n" + pessoa + "\n");
-        System.out.println("------------ ClientePJ ------------\n" + empresa + "\n");
-        System.out.println("------------ Condutor ------------\n" + condutor1 + "\n");
-        System.out.println("------------ Frota ------------\n" + frota + "\n");
-        System.out.println("------------ Veiculo ------------\n" + veiculo + "\n");
-        System.out.println("------------ SeguroPF ------------\n" + segPF + "\n");
-        System.out.println("------------ SeguroPJ ------------\n" + segPJ + "\n");
-        System.out.println("------------ Sinistro ------------\n" + sinPF + "\n");
+        seguradora.gravarDados();
 
+        // System.out.println("------------ Seguradora ------------\n" + seguradora + "\n");
+        // System.out.println("------------ ClientePF ------------\n" + pessoa + "\n");
+        // System.out.println("------------ ClientePJ ------------\n" + empresa + "\n");
+        // System.out.println("------------ Condutor ------------\n" + condutor1 + "\n");
+        // System.out.println("------------ Frota ------------\n" + frota + "\n");
+        // System.out.println("------------ Veiculo ------------\n" + veiculo + "\n");
+        // System.out.println("------------ SeguroPF ------------\n" + segPF + "\n");
+        // System.out.println("------------ SeguroPJ ------------\n" + segPJ + "\n");
+        // System.out.println("------------ Sinistro ------------\n" + sinPF + "\n");
+        
+        System.exit(0);
         //começa Menu de Operações
         System.out.println("\n--------------------------------------------------------------------------------\n");
         System.out.println("\nPara interagir com o Menu, basta escolher o número correspondente a cada opção\n");
@@ -144,7 +109,7 @@ public class AppMain {
                     System.out.println("\nEndereço:");
                     String endereco = scan.nextLine();
 
-                    seguradoras.add(new Seguradora(cnpj, nome, telefone, email, endereco));
+                    seguradoras.add(new Seguradora(cnpj, nome, telefone, email, endereco, "arquivos_" + nome));
 
                     System.out.println("\nSeguradora cadastrada.");
 
