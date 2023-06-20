@@ -8,8 +8,9 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
     File file;
 
     //Construtor
-    public ArquivoClientePF(){
-        this.file = new File("arquivos//clientesPF.csv");
+    public ArquivoClientePF(String pasta){
+        String str = pasta + "//clientesPF.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {

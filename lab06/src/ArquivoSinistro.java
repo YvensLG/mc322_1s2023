@@ -10,18 +10,19 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
     File file;
 
     //Construtor
-    public ArquivoSinistro(){
-        this.file = new File("arquivos//sinistro.csv");
+    public ArquivoSinistro(String pasta){
+        String str = pasta + "//sinistros.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {
-                System.out.println("Arquivo sinistro.csv criado.");
+                System.out.println("Arquivo sinistros.csv criado.");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writer.write("ID,DATA,ENDERECO,CPF_CONDUTOR,ID_SEGURO\n");
                 writer.close();
             }
             else {
-                System.out.println("Arquivo sinistro.csv já existe.");
+                System.out.println("Arquivo sinistros.csv já existe.");
             }
         }
         catch(Exception e) {

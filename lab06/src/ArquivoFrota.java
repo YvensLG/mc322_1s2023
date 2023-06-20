@@ -8,8 +8,9 @@ public class ArquivoFrota implements I_Arquivo<Frota>{
     File file;
 
     //Construtor
-    public ArquivoFrota(){
-        this.file = new File("arquivos//frotas.csv");
+    public ArquivoFrota(String pasta){
+        String str = pasta + "//frotas.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {

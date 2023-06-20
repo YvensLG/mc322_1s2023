@@ -10,18 +10,19 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
     File file;
 
     //Construtor
-    public ArquivoSeguro(){
-        this.file = new File("arquivos//seguro.csv");
+    public ArquivoSeguro(String pasta){
+        String str = pasta + "//seguros.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {
-                System.out.println("Arquivo seguro.csv criado.");
+                System.out.println("Arquivo seguros.csv criado.");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writer.write("ID,DATA_INICIO,DATA_FIM,NOME_SEGURADORA,LISTA_ID_SINISTROS,LISTA_CPF_CONDUTORES,VALOR_MENSAL\n");
                 writer.close();
             }
             else {
-                System.out.println("Arquivo seguro.csv já existe.");
+                System.out.println("Arquivo seguros.csv já existe.");
             }
         }
         catch(Exception e) {

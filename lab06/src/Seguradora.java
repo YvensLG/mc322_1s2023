@@ -10,9 +10,16 @@ public class Seguradora {
 	private ArrayList<ClientePJ> listaClientesPJ;
 	private ArrayList<ClientePF> listaClientesPF;
 	private ArrayList<Seguro> listaSeguros;
+	private ArquivoClientePF arquivoClientePF;
+	private ArquivoClientePJ arquivoClientePJ;
+	private ArquivoCondutor arquivoCondutor;
+	private ArquivoFrota arquivoFrota;
+	private ArquivoVeiculo arquivoVeiculo;
+	private ArquivoSeguro arquivoSeguro;
+	private ArquivoSinistro arquivoSinistro;
 
 	//Construtor
-	public Seguradora(String cnpj, String nome, String telefone, String endereco, String email)
+	public Seguradora(String cnpj, String nome, String telefone, String endereco, String email, String pasta)
 	{
 		this.cnpj = cnpj;
 		this.nome = nome;
@@ -22,6 +29,13 @@ public class Seguradora {
 		this.listaClientesPJ = new ArrayList<ClientePJ>();
 		this.listaClientesPF = new ArrayList<ClientePF>();
 		this.listaSeguros = new ArrayList<Seguro>();
+		this.arquivoClientePF = new ArquivoClientePF(pasta);
+		this.arquivoClientePJ = new ArquivoClientePJ(pasta);
+		this.arquivoCondutor = new ArquivoCondutor(pasta);
+		this.arquivoFrota = new ArquivoFrota(pasta);
+		this.arquivoVeiculo = new ArquivoVeiculo(pasta);
+		this.arquivoSeguro = new ArquivoSeguro(pasta);
+		this.arquivoSinistro = new ArquivoSinistro(pasta);
 	}
 	
 	//lista todos os Clientes cadastrados na lista
@@ -181,6 +195,16 @@ public class Seguradora {
 		System.out.println("Receita Total: R$" + String.format("%.2f", total));
 	}
 
+	//
+	public void lerDados(){
+
+	}
+	
+	//
+	public void gravarDados(){
+		
+	}
+	
 	//Retorna as informações da Seguradora
     public String toString(){
         String info = "";

@@ -8,8 +8,9 @@ public class ArquivoVeiculo implements I_Arquivo<Veiculo>{
     File file;
 
     //Construtor
-    public ArquivoVeiculo(){
-        this.file = new File("arquivos//veiculos.csv");
+    public ArquivoVeiculo(String pasta){
+        String str = pasta + "//veiculos.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {

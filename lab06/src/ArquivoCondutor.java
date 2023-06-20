@@ -8,8 +8,9 @@ public class ArquivoCondutor implements I_Arquivo<Condutor>{
     File file;
 
     //Construtor
-    public ArquivoCondutor(){
-        this.file = new File("arquivos//condutores.csv");
+    public ArquivoCondutor(String pasta){
+        String str = pasta + "//condutores.csv";
+        this.file = new File(str);
         try {
             boolean value = file.createNewFile();
             if (value) {
