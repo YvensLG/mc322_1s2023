@@ -11,8 +11,7 @@ public class AppMain {
 
     //Main
     public static void main(String[] args) {
-        ArquivoClientePF arq = new ArquivoClientePF();
-        arq.lerArquivo();
+        
         System.exit(0);
         //cria seguradora
         Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura",

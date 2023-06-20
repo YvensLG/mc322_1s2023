@@ -17,7 +17,7 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
             if (value) {
                 System.out.println("Arquivo seguro.csv criado.");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write("ID,DATA_INICIO,DATA_FIM,NOME_SEGURADORA,VALOR_MENSAL,LISTA_ID_SINISTROS,LISTA_CPF_CONDUTORES,CODE_FROTA/PLACA_VEICULO,CLIENTE\n");
+                writer.write("ID,DATA_INICIO,DATA_FIM,NOME_SEGURADORA,LISTA_ID_SINISTROS,LISTA_CPF_CONDUTORES,VALOR_MENSAL\n");
                 writer.close();
             }
             else {
@@ -47,15 +47,6 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
             }
 
             str += ",";
-
-            if(s instanceof SeguroPF){
-                str += ((SeguroPF)s).getVeiculo().getPlaca() + ",";
-                str += ((SeguroPF)s).getCliente().getCpf() + ",";
-            }
-            else if(s instanceof SeguroPJ){
-                str += ((SeguroPJ)s).getFrota().getCode() + ",";
-                str += ((SeguroPJ)s).getCliente().getCnpj();
-            }
 
             writer.write(str);
             writer.close();
