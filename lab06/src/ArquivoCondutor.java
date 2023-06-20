@@ -4,19 +4,19 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ArquivoClientePF implements I_Arquivo<ClientePF>{
+public class ArquivoCondutor implements I_Arquivo<Condutor>{
     File file;
 
     //Construtor
-    public ArquivoClientePF(){
-        this.file = new File("arquivos//clientesPF.csv");
+    public ArquivoCondutor(){
+        this.file = new File("arquivos//condutores.csv");
         try {
             boolean value = file.createNewFile();
             if (value) {
-                System.out.println("Arquivo clientesPF.csv criado.");
+                System.out.println("Arquivo condutores.csv criado.");
             }
             else {
-                System.out.println("Arquivo clientesPF.csv já existe.");
+                System.out.println("Arquivo condutores.csv já existe.");
             }
         }
         catch(Exception e) {
@@ -24,8 +24,8 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
         }
     }
     
-    public boolean gravarArquivo (ClientePF c){
-        System.out.println("Não é possível gravar arquivos ClientePF.");
+    public boolean gravarArquivo (Condutor c){
+        System.out.println("Não é possível gravar arquivos Condutor.");
         return false;
     }
 
@@ -48,13 +48,12 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
         }
     }
 
-    public Pair<ClientePF, String> converteString(String txt){
+    public Condutor converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");
 
-        ClientePF c = new ClientePF(s[1], s[2], s[3], s[4], s[0], s[5], s[6], LocalDate.parse(s[7]));
-        String placa = s[8];
+        Condutor c = new Condutor(s[0], s[1], s[2], s[3], s[4], LocalDate.parse(s[5]));
 
-        return new Pair<ClientePF, String> (c, placa);
+        return c;
     }
 }

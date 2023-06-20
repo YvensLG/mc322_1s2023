@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class AppMain {
     //scanner que será utilizado
