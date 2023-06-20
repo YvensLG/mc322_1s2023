@@ -49,16 +49,19 @@ public class ArquivoFrota implements I_Arquivo<Frota>{
         }
     }
 
-    public Frota converteString(String txt){
+    public Pair<Frota, ArrayList<String>> converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");
 
         Frota f = new Frota();
         f.setCode(s[0]);
 
-        //olhar isso depois
-        String placa1 = s[1], placa2 = s[2], placa3 = s[3];
+        ArrayList<String> placas = new ArrayList<String>();
 
-        return f;
+        for(int i=1; i<s.length; i++){
+            placas.add(s[i]);
+        }
+
+        return new Pair<Frota, ArrayList<String>> (f, placas);
     }
 }

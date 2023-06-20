@@ -10,6 +10,7 @@ public class Seguradora {
 	private ArrayList<ClientePJ> listaClientesPJ;
 	private ArrayList<ClientePF> listaClientesPF;
 	private ArrayList<Seguro> listaSeguros;
+	private ArrayList<Condutor> listaCondutores;
 	private ArquivoClientePF arquivoClientePF;
 	private ArquivoClientePJ arquivoClientePJ;
 	private ArquivoCondutor arquivoCondutor;
@@ -29,6 +30,7 @@ public class Seguradora {
 		this.listaClientesPJ = new ArrayList<ClientePJ>();
 		this.listaClientesPF = new ArrayList<ClientePF>();
 		this.listaSeguros = new ArrayList<Seguro>();
+		this.listaCondutores = new ArrayList<Condutor>();
 		this.arquivoClientePF = new ArquivoClientePF(pasta);
 		this.arquivoClientePJ = new ArquivoClientePJ(pasta);
 		this.arquivoCondutor = new ArquivoCondutor(pasta);
@@ -197,12 +199,62 @@ public class Seguradora {
 
 	//
 	public void lerDados(){
+		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
+		for(String s : arquivoVeiculo.lerArquivo()){
+			Veiculo v = arquivoVeiculo.converteString(s);
+			listaVeiculos.add(v);
+		}
 
+		ArrayList<Frota> listaFrotas = new ArrayList<Frota>();
+		for(String s : arquivoFrota.lerArquivo()){
+			Pair<Frota, ArrayList<String>> p = arquivoFrota.converteString(s);
+
+			for(String placa : p.second()){
+				for(Veiculo v : listaVeiculos){
+					if(v.getPlaca().equals(placa)){
+						p.first().addVeiculo(v);
+					}
+				}
+			}
+
+			listaFrotas.add(p.first());
+		}
+
+		for(String s : arquivoClientePF.lerArquivo()){
+			Pair<ClientePF, String> p = arquivoClientePF.converteString(s);
+
+			for(Veiculo v : listaVeiculos){
+				if(v.getPlaca().equals(p.second())){
+					p.first().cadastrarVeiculo(v);
+				}
+			}
+		}
+
+		for(String s : arquivoClientePJ.lerArquivo()){
+			Pair<ClientePJ, String> p = arquivoClientePJ.converteString(s);
+
+			for(Frota f : listaFrotas){
+				if(f.getCode().equals(p.second())){
+					p.first().cadastrarFrota(f);
+				}
+			}
+		}
+
+		for(String s : arquivoCondutor.lerArquivo()){
+			Condutor c = arquivoCondutor.converteString(s);
+			listaCondutores.add(c);
+		}
 	}
 	
 	//
 	public void gravarDados(){
-		
+		for(Seguro s : listaSeguros){
+			arquivoSeguro.gravarArquivo(s);
+
+			for(Sinistro sin : s.getListaSinistros()){
+				arquivoSinistro.gravarArquivo(sin);
+			}
+		}
 	}
 	
 	//Retorna as informações da Seguradora
