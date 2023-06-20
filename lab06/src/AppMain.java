@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.File;
 
 public class AppMain {
     //scanner que será utilizado
@@ -12,6 +12,9 @@ public class AppMain {
 
     //Main
     public static void main(String[] args) {
+        ArquivoClientePF arq = new ArquivoClientePF();
+        arq.lerArquivo();
+        System.exit(0);
         //cria seguradora
         Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura",
                                                "(85) 96284-1639", "Campinas", "naoresponda@sesegura.com");
