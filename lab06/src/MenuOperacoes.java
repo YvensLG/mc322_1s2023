@@ -8,8 +8,9 @@ public enum MenuOperacoes {
     CLIENTES_PJ (2),
     SEGURO (3),
     CALCULAR_RECEITA (4),
-    INFO_SEGURADORA (5),
-    VOLTAR(6),
+    GRAVAR_DADOS (5),
+    INFO_SEGURADORA (6),
+    VOLTAR(7),
 
     CLIPF_CAD (1.1),
     CLIPF_CHECAR (1.2),
