@@ -11,8 +11,11 @@ public class ArquivoCondutor implements I_Arquivo<Condutor>{
 
     //Construtor
     public ArquivoCondutor(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//condutores.csv";
         this.file = new File(str);
+
+        //checa se condutores.csv já existe, e se não existe, cria um arquivo assim como o fornecido
         try {
             boolean value = file.createNewFile();
             if (value) {
@@ -25,16 +28,19 @@ public class ArquivoCondutor implements I_Arquivo<Condutor>{
                 System.out.println("Arquivo condutores.csv já existe.");
             }
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoCondutor.");
         }
     }
     
+    //não é necessário gravar Condutor nesa tarefa
     public boolean gravarArquivo (Condutor c){
         System.out.println("Não é possível gravar arquivos Condutor.");
         return false;
     }
 
+    //lê o arquivo "file" e retorna o que está escrito nele
     public ArrayList<String> lerArquivo(){
         try{
             Scanner scan = new Scanner(file);
@@ -48,12 +54,15 @@ public class ArquivoCondutor implements I_Arquivo<Condutor>{
             scan.close();
             return lista;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na leitura do ArquivoCondutor.");
             return null;
         }
     }
 
+    //converte o tipo de string dada no arquivo .csv para Condutor
     public Condutor converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");

@@ -11,8 +11,11 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
 
     //Construtor
     public ArquivoClientePF(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//clientesPF.csv";
         this.file = new File(str);
+
+        //checa se clientesPF.csv já existe, e se não existe, cria um arquivo assim como o fornecido
         try {
             boolean value = file.createNewFile();
             if (value) {
@@ -25,16 +28,19 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
                 System.out.println("Arquivo clientesPF.csv já existe.");
             }
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoClientePF.");
         }
     }
     
+    //não é necessário gravar ClientePF nesa tarefa
     public boolean gravarArquivo (ClientePF c){
         System.out.println("Não é possível gravar arquivos ClientePF.");
         return false;
     }
 
+    //lê o arquivo "file" e retorna o que está escrito nele
     public ArrayList<String> lerArquivo(){
         try{
             Scanner scan = new Scanner(file);
@@ -48,12 +54,15 @@ public class ArquivoClientePF implements I_Arquivo<ClientePF>{
             scan.close();
             return lista;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na leitura do ArquivoClientePF.");
             return null;
         }
     }
 
+    //converte o tipo de string dada no arquivo .csv para ClientePF e a placa de seu veículo
     public Pair<ClientePF, String> converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");

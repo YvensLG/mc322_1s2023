@@ -33,6 +33,7 @@ public class Seguradora {
 
 		File file = new File(pasta);
 
+		//cria uma pasta para armazenar os arquivos, caso já não exista
 		try{
 			if (file.mkdir() == true) { 
 				System.out.println("Diretório " + pasta + " criado com sucesso!"); 
@@ -42,7 +43,7 @@ public class Seguradora {
 			} 
 		}
 		catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação da pasta da Seguradora.");
         }
 
 
@@ -216,8 +217,9 @@ public class Seguradora {
 		System.out.println("Receita Total: R$" + String.format("%.2f", total));
 	}
 
-	//
+	//lê todos os dados do diretório e os instancia na seguradora
 	public void lerDados(){
+		//lê os veículos
 		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
 
 		for(String s : arquivoVeiculo.lerArquivo()){
@@ -225,6 +227,7 @@ public class Seguradora {
 			listaVeiculos.add(v);
 		}
 
+		//lê as frotas e adiciona seus veículos
 		ArrayList<Frota> listaFrotas = new ArrayList<Frota>();
 		for(String s : arquivoFrota.lerArquivo()){
 			Pair<Frota, ArrayList<String>> p = arquivoFrota.converteString(s);
@@ -240,6 +243,7 @@ public class Seguradora {
 			listaFrotas.add(p.first());
 		}
 
+		//lê os clientesPF e adiciona seus veículos
 		for(String s : arquivoClientePF.lerArquivo()){
 			Pair<ClientePF, String> p = arquivoClientePF.converteString(s);
 			ClientePF cliente = p.first();
@@ -249,6 +253,8 @@ public class Seguradora {
 					cliente.cadastrarVeiculo(v);
 				}
 			}
+
+			//valida nome e cpf
 			if(Validacao.validarNome(cliente.getNome()) && Validacao.validarCPF(cliente.getCpf())){
 				this.cadastrarCliente(cliente);
 			}
@@ -257,6 +263,7 @@ public class Seguradora {
 			}
 		}
 
+		//lê os clientesPJ e adiciona suas frotas
 		for(String s : arquivoClientePJ.lerArquivo()){
 			Pair<ClientePJ, String> p = arquivoClientePJ.converteString(s);
 			ClientePJ cliente = p.first();
@@ -267,6 +274,7 @@ public class Seguradora {
 				}
 			}
 
+			//valida nome e cnpj
 			if(Validacao.validarNome(cliente.getNome()) && Validacao.validarCNPJ(cliente.getCnpj())){
 				this.cadastrarCliente(cliente);
 			}
@@ -275,19 +283,24 @@ public class Seguradora {
 			}
 		}
 
+		//lê os condutores
 		for(String s : arquivoCondutor.lerArquivo()){
 			Condutor c = arquivoCondutor.converteString(s);
 			listaCondutores.add(c);
 		}
 	}
 	
-	//
+	//grava os dados de seguros e sinistros no diretório
 	public void gravarDados(){
+		//recria os arquivos que possivelmente já estavam lá
 		this.arquivoSeguro = new ArquivoSeguro(pasta);
 		this.arquivoSinistro = new ArquivoSinistro(pasta);
+
+		//grava os seguros
 		for(Seguro s : listaSeguros){
 			arquivoSeguro.gravarArquivo(s);
 
+			//grava os sinistros
 			for(Sinistro sin : s.getListaSinistros()){
 				arquivoSinistro.gravarArquivo(sin);
 			}

@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 
+//interface dos tipos arquivo
 public interface I_Arquivo<T>{
+    //grava arquivos 
     public boolean gravarArquivo (T obj);
 
-    public ArrayList<String> lerArquivo(/*algo*/);
+    //lê dos arquivos
+    public ArrayList<String> lerArquivo();
 }

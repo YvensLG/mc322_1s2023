@@ -11,8 +11,11 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
 
     //Construtor
     public ArquivoSinistro(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//sinistros.csv";
         this.file = new File(str);
+
+        //remove o sinistro.csv se já existe, e cria outro em seu lugar
         try {
             boolean value = file.delete();
             
@@ -28,11 +31,13 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
             writer.write("ID,DATA,ENDERECO,CPF_CONDUTOR,ID_SEGURO\n");
             writer.close();
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoSinistro.");
         }
     }
     
+    //grava no arquivo "file" os dados do Sinistro
     public boolean gravarArquivo (Sinistro s){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
@@ -44,12 +49,15 @@ public class ArquivoSinistro implements I_Arquivo<Sinistro>{
             writer.close();
             return true;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na gravação do ArquivoSinistro.");
             return false;
         }
     }
 
+    //não é necessário ler Sinistro nesa tarefa
     public ArrayList<String> lerArquivo(){
         System.out.println("Não é possível ler arquivos Sinistro.");
         return null;

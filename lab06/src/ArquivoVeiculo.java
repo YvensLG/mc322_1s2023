@@ -11,8 +11,11 @@ public class ArquivoVeiculo implements I_Arquivo<Veiculo>{
 
     //Construtor
     public ArquivoVeiculo(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//veiculos.csv";
         this.file = new File(str);
+
+        //checa se veiculos.csv já existe, e se não existe, cria um arquivo assim como o fornecido
         try {
             boolean value = file.createNewFile();
             if (value) {
@@ -25,16 +28,19 @@ public class ArquivoVeiculo implements I_Arquivo<Veiculo>{
                 System.out.println("Arquivo veiculos.csv já existe.");
             }
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoVeiculo.");
         }
     }
     
+    //não é necessário gravar Veiculo nesa tarefa 
     public boolean gravarArquivo (Veiculo v){
         System.out.println("Não é possível gravar arquivos Veiculo.");
         return false;
     }
 
+    //lê o arquivo "file" e retorna o que está escrito nele
     public ArrayList<String> lerArquivo(){
         try{
             Scanner scan = new Scanner(file);
@@ -48,12 +54,15 @@ public class ArquivoVeiculo implements I_Arquivo<Veiculo>{
             scan.close();
             return lista;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na leitura do ArquivoVeiculo.");
             return null;
         }
     }
 
+    //converte o tipo de string dada no arquivo .csv para Veiculo
     public Veiculo converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");

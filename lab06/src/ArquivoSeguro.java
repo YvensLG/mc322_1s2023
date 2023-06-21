@@ -11,8 +11,11 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
 
     //Construtor
     public ArquivoSeguro(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//seguros.csv";
         this.file = new File(str);
+
+        //remove o seguros.csv se já existe, e cria outro em seu lugar
         try {
             boolean value = file.delete();
 
@@ -28,11 +31,13 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
             writer.write("ID,DATA_INICIO,DATA_FIM,NOME_SEGURADORA,LISTA_ID_SINISTROS,LISTA_CPF_CONDUTORES,VALOR_MENSAL\n");
             writer.close();
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoSeguro.");
         }
     }
-    
+
+    //grava no arquivo "file" os dados do Seguro
     public boolean gravarArquivo (Seguro s){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
@@ -56,12 +61,15 @@ public class ArquivoSeguro implements I_Arquivo<Seguro>{
             writer.close();
             return true;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na gravação do ArquivoSeguro.");
             return false;
         }
     }
 
+    //não é necessário ler Seguro nesa tarefa
     public ArrayList<String> lerArquivo(){
         System.out.println("Não é possível ler arquivos Seguro.");
         return null;

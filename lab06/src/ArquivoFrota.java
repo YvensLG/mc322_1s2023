@@ -11,8 +11,11 @@ public class ArquivoFrota implements I_Arquivo<Frota>{
 
     //Construtor
     public ArquivoFrota(String pasta){
+        //cria um caminho até o arquivo .csv
         String str = pasta + "//frotas.csv";
         this.file = new File(str);
+
+        //checa se frotas.csv já existe, e se não existe, cria um arquivo assim como o fornecido
         try {
             boolean value = file.createNewFile();
             if (value) {
@@ -25,16 +28,19 @@ public class ArquivoFrota implements I_Arquivo<Frota>{
                 System.out.println("Arquivo frotas.csv já existe.");
             }
         }
+        //se ocorreu algum erro
         catch(Exception e) {
-            System.out.println("Algum erro inesperado ocorreu.");
+            System.out.println("Algum erro inesperado ocorreu na criação do ArquivoFrota.");
         }
     }
     
+    //não é necessário gravar Frota nesa tarefa
     public boolean gravarArquivo (Frota f){
         System.out.println("Não é possível gravar arquivos Frota.");
         return false;
     }
 
+    //lê o arquivo "file" e retorna o que está escrito nele
     public ArrayList<String> lerArquivo(){
         try{
             Scanner scan = new Scanner(file);
@@ -48,12 +54,15 @@ public class ArquivoFrota implements I_Arquivo<Frota>{
             scan.close();
             return lista;
 
-        } catch (IOException e){
-            System.out.println("Algum erro inesperado ocorreu.");
+        }
+        //se ocorreu algum erro
+        catch (IOException e){
+            System.out.println("Algum erro inesperado ocorreu na leitura do ArquivoFrota.");
             return null;
         }
     }
 
+    //converte o tipo de string dada no arquivo .csv para Frota e as placas de seus veículos
     public Pair<Frota, ArrayList<String>> converteString(String txt){
         String[] s = new String[] {};
         s = txt.split(",");
