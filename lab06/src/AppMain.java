@@ -15,13 +15,14 @@ public class AppMain {
         //cria seguradora
         Seguradora seguradora = new Seguradora("16.208.979/0001-28", "Se segura", "(85) 96284-1639", 
                                                "Campinas", "naoresponda@sesegura.com", "arquivos");
-        
-        seguradoras.add(seguradora);
+                                               
+                                               seguradoras.add(seguradora);
 
         //instancia ClientesPF/PJ, Veiculos, Frotas e Condutores do arquivo
         seguradora.lerDados();
-
         
+        
+        System.exit(0);
         //cria Seguros
         SeguroPF segPF = seguradora.gerarSeguro(LocalDate.of(2011, 4, 3), LocalDate.now(),
         seguradora.getListaClientesPF().get(0).getListaVeiculos().get(0), seguradora.getListaClientesPF().get(0));
@@ -29,7 +30,7 @@ public class AppMain {
         SeguroPJ segPJ = seguradora.gerarSeguro(LocalDate.of(2010, 3, 2), LocalDate.now(),
         seguradora.getListaClientesPJ().get(0).getListaFrota().get(0), seguradora.getListaClientesPJ().get(0));
         
-        //cria Sinistro
+        //cria Sinistros
         Sinistro sinPF = segPF.gerarSinistro(LocalDate.now(), "aqui", seguradora.getListaCondutores().get(0));
         Sinistro sinPJ = segPJ.gerarSinistro(LocalDate.now(), "ali", seguradora.getListaCondutores().get(1));
 
@@ -45,7 +46,6 @@ public class AppMain {
         // System.out.println("------------ SeguroPJ ------------\n" + segPJ + "\n");
         // System.out.println("------------ Sinistro ------------\n" + sinPF + "\n");
         
-        System.exit(0);
         //começa Menu de Operações
         System.out.println("\n--------------------------------------------------------------------------------\n");
         System.out.println("\nPara interagir com o Menu, basta escolher o número correspondente a cada opção\n");

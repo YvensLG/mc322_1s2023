@@ -121,7 +121,7 @@ public class Validacao {
     // Valida Nome
     public static boolean validarNome(String nome) {
         String nomeantigo = nome;
-        nome = nome.replaceAll("[^A-Za-z\\s]", ""); // deixa somente letras e espaços
+        nome = nome.replaceAll("[^A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\\s]", ""); // deixa somente letras e espaços
 
         if(nome.equals(nomeantigo)) return true;
         return false;

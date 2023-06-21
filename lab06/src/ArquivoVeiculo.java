@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 //import java.time.LocalDate;
@@ -15,6 +17,9 @@ public class ArquivoVeiculo implements I_Arquivo<Veiculo>{
             boolean value = file.createNewFile();
             if (value) {
                 System.out.println("Arquivo veiculos.csv criado.");
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("PLACA,MARCA,MODELO,ANO_FAB\n");
+                writer.close();
             }
             else {
                 System.out.println("Arquivo veiculos.csv já existe.");

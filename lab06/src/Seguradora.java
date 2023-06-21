@@ -1,3 +1,4 @@
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -29,6 +30,22 @@ public class Seguradora {
 		this.endereco = endereco;
 		this.email = email;
 		this.pasta = pasta;
+
+		File file = new File(pasta);
+
+		try{
+			if (file.mkdir() == true) { 
+				System.out.println("Diretório " + pasta + " criado com sucesso!"); 
+			} 
+			else { 
+				System.out.println("Diretório " + pasta + " já estava criado!"); 
+			} 
+		}
+		catch(Exception e) {
+            System.out.println("Algum erro inesperado ocorreu.");
+        }
+
+
 		this.listaClientesPJ = new ArrayList<ClientePJ>();
 		this.listaClientesPF = new ArrayList<ClientePF>();
 		this.listaSeguros = new ArrayList<Seguro>();
@@ -202,8 +219,6 @@ public class Seguradora {
 	//
 	public void lerDados(){
 		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
-		this.arquivoSeguro = new ArquivoSeguro(pasta);
-		this.arquivoSinistro = new ArquivoSinistro(pasta);
 
 		for(String s : arquivoVeiculo.lerArquivo()){
 			Veiculo v = arquivoVeiculo.converteString(s);
@@ -221,32 +236,43 @@ public class Seguradora {
 					}
 				}
 			}
-
+			
 			listaFrotas.add(p.first());
 		}
 
 		for(String s : arquivoClientePF.lerArquivo()){
 			Pair<ClientePF, String> p = arquivoClientePF.converteString(s);
+			ClientePF cliente = p.first();
 
 			for(Veiculo v : listaVeiculos){
 				if(v.getPlaca().equals(p.second())){
-					p.first().cadastrarVeiculo(v);
+					cliente.cadastrarVeiculo(v);
 				}
 			}
-
-			this.cadastrarCliente(p.first());
+			if(Validacao.validarNome(cliente.getNome()) && Validacao.validarCPF(cliente.getCpf())){
+				this.cadastrarCliente(cliente);
+			}
+			else{
+				System.out.println("Não foi possível cadastrar cliente " + cliente.getNome() + ". Informações Inválidas!");
+			}
 		}
 
 		for(String s : arquivoClientePJ.lerArquivo()){
 			Pair<ClientePJ, String> p = arquivoClientePJ.converteString(s);
+			ClientePJ cliente = p.first();
 
 			for(Frota f : listaFrotas){
 				if(f.getCode().equals(p.second())){
-					p.first().cadastrarFrota(f);
+					cliente.cadastrarFrota(f);
 				}
 			}
 
-			this.cadastrarCliente(p.first());
+			if(Validacao.validarNome(cliente.getNome()) && Validacao.validarCNPJ(cliente.getCnpj())){
+				this.cadastrarCliente(cliente);
+			}
+			else{
+				System.out.println("Não foi possível cadastrar cliente " + cliente.getNome() + ". Informações Inválidas!");
+			}
 		}
 
 		for(String s : arquivoCondutor.lerArquivo()){
@@ -257,6 +283,8 @@ public class Seguradora {
 	
 	//
 	public void gravarDados(){
+		this.arquivoSeguro = new ArquivoSeguro(pasta);
+		this.arquivoSinistro = new ArquivoSinistro(pasta);
 		for(Seguro s : listaSeguros){
 			arquivoSeguro.gravarArquivo(s);
 

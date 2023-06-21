@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -15,6 +17,9 @@ public class ArquivoCondutor implements I_Arquivo<Condutor>{
             boolean value = file.createNewFile();
             if (value) {
                 System.out.println("Arquivo condutores.csv criado.");
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("CPF_CONDUTOR,NOME_CONDUTOR,TELEFONE,ENDERECO,EMAIL,DATA_NASCIMENTO\n");
+                writer.close();
             }
             else {
                 System.out.println("Arquivo condutores.csv já existe.");
